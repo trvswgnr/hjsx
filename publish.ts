@@ -78,7 +78,7 @@ async function publish(oldVersion: SemVer, newVersion: SemVer) {
     if (oldVersion === newVersion) {
         console.log(
             `${colors.yellow("not publishing to npm")} ${colors.gray(
-                `(version ${newVersion} is the same as npm)`,
+                `(v${newVersion} is the same as npm)`,
             )}`,
         );
         return;

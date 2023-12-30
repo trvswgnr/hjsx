@@ -6,8 +6,7 @@
     "type": "module",
     "types": "types.d.ts",
     "scripts": {
-        "build": "bun build hjsx.ts --outfile hjsx.js --target node --minify",
-        "prepare": "bun run build && bun run util/update-version.ts"
+        "build": "bun build hjsx.ts --outfile hjsx.js --target node --minify"
     },
     "devDependencies": {
         "@types/bun": "latest"

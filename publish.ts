@@ -57,18 +57,21 @@ async function build() {
 
 async function publish() {
     console.log("publishing to npm...");
-    const { exited } = Bun.spawn(["npm", "publish"], quietSpawnOptions);
-    const exitCode = await exited;
+    const process = Bun.spawn(["npm", "publish"], quietSpawnOptions);
+    const exitCode = await process.exited;
     if (exitCode !== 0) {
-        throw new Error("publish failed");
+        const stderr = await Bun.readableStreamToText(process.stderr);
+        throw new Error(`npm publish failed: ${stderr}`);
     }
 }
 
 async function commitAndPush(): Promise<void> {
+    console.log("committing and pushing...");
     let process = Bun.spawn(["git", "add", "-A"], quietSpawnOptions);
     let exitCode = await process.exited;
     if (exitCode !== 0) {
-        throw new Error("git add failed");
+        const stderr = await Bun.readableStreamToText(process.stderr);
+        throw new Error(`git add failed: ${stderr}`);
     }
     process = Bun.spawn(
         ["git", "commit", "-m", "'update version and test results badge'"],
@@ -82,7 +85,8 @@ async function commitAndPush(): Promise<void> {
     process = Bun.spawn(["git", "push"], quietSpawnOptions);
     exitCode = await process.exited;
     if (exitCode !== 0) {
-        throw new Error("git push failed");
+        const stderr = await Bun.readableStreamToText(process.stderr);
+        throw new Error(`git push failed: ${stderr}`);
     }
 }
 
@@ -110,8 +114,8 @@ function getNewVersion(version: SemVer, args: ParsedArgs["values"]): SemVer {
 
 async function runTests(): Promise<boolean> {
     console.log("running tests...");
-    const { exited } = Bun.spawn("bun test".split(" "), quietSpawnOptions);
-    const exitCode = await exited;
+    const process = Bun.spawn("bun test".split(" "), quietSpawnOptions);
+    const exitCode = await process.exited;
     return exitCode === 0;
 }
 

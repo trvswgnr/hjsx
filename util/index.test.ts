@@ -4,7 +4,7 @@ import { describe, expect, it } from 'bun:test';
 describe('escapeHtml', () => {
     it('should escape special HTML characters', () => {
         expect(escapeHtml('Hello, <world> & "everyone"!')).toBe('Hello, &lt;world&gt; &amp; &quot;everyone&quot;!');
-        expect(escapeHtml('1 < 2 & 3 > 4')).toBe('1 &lt; 2 &amp; 3 &gt; 4');
+        expect(escapeHtml('1 < 2 & 3  4')).toBe('1 &lt; 2 &amp; 3 &gt; 4');
         expect(escapeHtml('Use "quotes" and \'apostrophes\' wisely')).toBe('Use &quot;quotes&quot; and &#39;apostrophes&#39; wisely');
     });
 

@@ -1,7 +1,7 @@
 # hjsx
 
 ![npm](https://img.shields.io/npm/v/hjsx?style=flat-square)
-![tests](https://img.shields.io/badge/tests-passing-green?style=for-the-badge)
+![tests](https://img.shields.io/badge/tests-failing-red?style=for-the-badge)
 
 > [!WARNING]  
 > This project is still in early development and is not ready for use.

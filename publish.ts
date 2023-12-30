@@ -1,3 +1,11 @@
+/**
+ * This script is used to do the following:
+ * 1. Build the project
+ * 2. Update the version in package.json
+ * 3. Run tests
+ * 4. Commit and push changes
+ */
+
 import { colors } from "./util";
 import { parseArgs } from "node:util";
 
@@ -24,15 +32,19 @@ const quietSpawnOptions = {
 
 await build();
 const [oldVersion, newVersion] = await updateVersion();
-await runTests();
-await commitAndPush();
-
-if (oldVersion !== newVersion) {
-    await publish();
-    console.log(`\n${colors.green("published!")} v${oldVersion} -> v${newVersion}`);
-} else {
-    console.log(`\n${colors.gray("(not published)")} v${oldVersion} == v${newVersion}`);
+const sameVersion = oldVersion === newVersion;
+const testsPassed = await runTests();
+const updatedReadme = await updateReadmeTestsBadge(testsPassed);
+if (updatedReadme || !sameVersion) {
+    await commitAndPush();
 }
+
+let message = `\n${colors.gray("(not published)")} v${oldVersion} == v${newVersion}`;
+if (!sameVersion) {
+    await publish();
+    message = `\n${colors.green("published!")} v${oldVersion} -> v${newVersion}`;
+}
+console.log(message);
 
 async function build() {
     console.log("building...");
@@ -96,24 +108,28 @@ function getNewVersion(version: SemVer, args: ParsedArgs["values"]): SemVer {
     return version;
 }
 
-async function runTests() {
+async function runTests(): Promise<boolean> {
     console.log("running tests...");
     const { exited } = Bun.spawn("bun test".split(" "), quietSpawnOptions);
     const exitCode = await exited;
-    const text = exitCode === 0 ? "passing" : "failing";
-    const color = exitCode === 0 ? "green" : "red";
-    return updateReadmeTestsBadge(text, color);
+    return exitCode === 0;
 }
 
-async function updateReadmeTestsBadge(text: string, color: string) {
+async function updateReadmeTestsBadge(testsPassed: boolean): Promise<boolean> {
+    const color = testsPassed ? "green" : "red";
+    const text = testsPassed ? "passing" : "failing";
     console.log("updating README.md tests badge...");
     const link = `![tests](https://img.shields.io/badge/tests-${text}-${color}?style=for-the-badge)`;
     const file = Bun.file("README.md");
     const contents = await file.text();
     const updated = contents.replace(/!\[tests\].+/, link);
+    if (contents === updated) {
+        return false;
+    }
     const writer = file.writer();
     writer.write(updated);
     await writer.end();
+    return true;
 }
 
 type Package = {

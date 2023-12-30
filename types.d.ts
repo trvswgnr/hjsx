@@ -1,10 +1,20 @@
-declare namespace sjsx {
+declare namespace hjsx {
+    interface ElementAttributesProperty {
+        props: {};
+    }
+    interface ElementChildrenAttribute {
+        children: {};
+    }
+    type Component<P = {}> = hjsx.FunctionComponent<P>;
+    type FunctionComponent<P = {}> = (
+        props?: P & { children?: Node },
+    ) => Node & { render: () => string };
     type PropsWithChildren<P = unknown> = P & { children?: Node | undefined };
     interface SVGLineElementAttributes<T> extends SVGProps<T> {}
     interface SVGTextElementAttributes<T> extends SVGProps<T> {}
-    interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {}
+    interface SVGProps<T> extends SVGAttributes, ClassAttributes<T> {}
     type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined;
-    interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface AllHTMLAttributes extends HTMLAttributes {
         accept?: string | undefined;
         acceptCharset?: string | undefined;
         action?: string | undefined;
@@ -119,7 +129,7 @@ declare namespace sjsx {
         | "strict-origin-when-cross-origin"
         | "unsafe-url";
     type HTMLAttributeAnchorTarget = "_self" | "_blank" | "_parent" | "_top" | (string & {});
-    interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface AnchorHTMLAttributes extends HTMLAttributes {
         download?: any;
         href?: string | undefined;
         hrefLang?: string | undefined;
@@ -129,8 +139,8 @@ declare namespace sjsx {
         type?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
     }
-    interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
-    interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface AudioHTMLAttributes extends MediaHTMLAttributes {}
+    interface AreaHTMLAttributes extends HTMLAttributes {
         alt?: string | undefined;
         coords?: string | undefined;
         download?: any;
@@ -141,14 +151,14 @@ declare namespace sjsx {
         shape?: string | undefined;
         target?: string | undefined;
     }
-    interface BaseHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface BaseHTMLAttributes extends HTMLAttributes {
         href?: string | undefined;
         target?: string | undefined;
     }
-    interface BlockquoteHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface BlockquoteHTMLAttributes extends HTMLAttributes {
         cite?: string | undefined;
     }
-    interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ButtonHTMLAttributes extends HTMLAttributes {
         disabled?: boolean | undefined;
         form?: string | undefined;
         formAction?: string | undefined;
@@ -160,43 +170,43 @@ declare namespace sjsx {
         type?: "submit" | "reset" | "button" | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-    interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface CanvasHTMLAttributes extends HTMLAttributes {
         height?: number | string | undefined;
         width?: number | string | undefined;
     }
-    interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ColHTMLAttributes extends HTMLAttributes {
         span?: number | undefined;
         width?: number | string | undefined;
     }
-    interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ColgroupHTMLAttributes extends HTMLAttributes {
         span?: number | undefined;
     }
-    interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface DataHTMLAttributes extends HTMLAttributes {
         value?: string | readonly string[] | number | undefined;
     }
-    interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface DetailsHTMLAttributes extends HTMLAttributes {
         open?: boolean | undefined;
         name?: string | undefined;
     }
-    interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface DelHTMLAttributes extends HTMLAttributes {
         cite?: string | undefined;
         dateTime?: string | undefined;
     }
-    interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface DialogHTMLAttributes extends HTMLAttributes {
         open?: boolean | undefined;
     }
-    interface EmbedHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface EmbedHTMLAttributes extends HTMLAttributes {
         height?: number | string | undefined;
         src?: string | undefined;
         type?: string | undefined;
         width?: number | string | undefined;
     }
-    interface FieldsetHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface FieldsetHTMLAttributes extends HTMLAttributes {
         disabled?: boolean | undefined;
         form?: string | undefined;
         name?: string | undefined;
     }
-    interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface FormHTMLAttributes extends HTMLAttributes {
         acceptCharset?: string | undefined;
         action?: string | undefined;
         autoComplete?: string | undefined;
@@ -206,10 +216,10 @@ declare namespace sjsx {
         noValidate?: boolean | undefined;
         target?: string | undefined;
     }
-    interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface HtmlHTMLAttributes extends HTMLAttributes {
         manifest?: string | undefined;
     }
-    interface IframeHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface IframeHTMLAttributes extends HTMLAttributes {
         allow?: string | undefined;
         allowFullScreen?: boolean | undefined;
         allowTransparency?: boolean | undefined;
@@ -227,7 +237,7 @@ declare namespace sjsx {
         srcDoc?: string | undefined;
         width?: number | string | undefined;
     }
-    interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ImgHTMLAttributes extends HTMLAttributes {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
         decoding?: "async" | "auto" | "sync" | undefined;
@@ -240,7 +250,7 @@ declare namespace sjsx {
         useMap?: string | undefined;
         width?: number | string | undefined;
     }
-    interface InsHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface InsHTMLAttributes extends HTMLAttributes {
         cite?: string | undefined;
         dateTime?: string | undefined;
     }
@@ -268,14 +278,22 @@ declare namespace sjsx {
         | "url"
         | "week"
         | (string & {});
-    interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface InputHTMLAttributes extends HTMLAttributes {
         accept?: string | undefined;
         alt?: string | undefined;
         autoComplete?: string | undefined;
-        capture?: boolean | "user" | "environment" | undefined; 
+        capture?: boolean | "user" | "environment" | undefined;
         checked?: boolean | undefined;
         disabled?: boolean | undefined;
-        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
+        enterKeyHint?:
+            | "enter"
+            | "done"
+            | "go"
+            | "next"
+            | "previous"
+            | "search"
+            | "send"
+            | undefined;
         form?: string | undefined;
         formAction?: string | undefined;
         formEncType?: string | undefined;
@@ -301,7 +319,7 @@ declare namespace sjsx {
         value?: string | readonly string[] | number | undefined;
         width?: number | string | undefined;
     }
-    interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface KeygenHTMLAttributes extends HTMLAttributes {
         challenge?: string | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
@@ -309,14 +327,14 @@ declare namespace sjsx {
         keyParams?: string | undefined;
         name?: string | undefined;
     }
-    interface LabelHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface LabelHTMLAttributes extends HTMLAttributes {
         form?: string | undefined;
         htmlFor?: string | undefined;
     }
-    interface LiHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface LiHTMLAttributes extends HTMLAttributes {
         value?: string | readonly string[] | number | undefined;
     }
-    interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface LinkHTMLAttributes extends HTMLAttributes {
         as?: string | undefined;
         crossOrigin?: CrossOrigin;
         fetchPriority?: "high" | "low" | "auto";
@@ -331,13 +349,13 @@ declare namespace sjsx {
         type?: string | undefined;
         charSet?: string | undefined;
     }
-    interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface MapHTMLAttributes extends HTMLAttributes {
         name?: string | undefined;
     }
-    interface MenuHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface MenuHTMLAttributes extends HTMLAttributes {
         type?: string | undefined;
     }
-    interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface MediaHTMLAttributes extends HTMLAttributes {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
         controlsList?: string | undefined;
@@ -349,14 +367,14 @@ declare namespace sjsx {
         preload?: string | undefined;
         src?: string | undefined;
     }
-    interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface MetaHTMLAttributes extends HTMLAttributes {
         charSet?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
         media?: string | undefined;
         content?: string | undefined;
     }
-    interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface MeterHTMLAttributes extends HTMLAttributes {
         form?: string | undefined;
         high?: number | undefined;
         low?: number | undefined;
@@ -365,10 +383,10 @@ declare namespace sjsx {
         optimum?: number | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-    interface QuoteHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface QuoteHTMLAttributes extends HTMLAttributes {
         cite?: string | undefined;
     }
-    interface ObjectHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ObjectHTMLAttributes extends HTMLAttributes {
         classID?: string | undefined;
         data?: string | undefined;
         form?: string | undefined;
@@ -379,38 +397,38 @@ declare namespace sjsx {
         width?: number | string | undefined;
         wmode?: string | undefined;
     }
-    interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface OlHTMLAttributes extends HTMLAttributes {
         reversed?: boolean | undefined;
         start?: number | undefined;
         type?: "1" | "a" | "A" | "i" | "I" | undefined;
     }
-    interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface OptgroupHTMLAttributes extends HTMLAttributes {
         disabled?: boolean | undefined;
         label?: string | undefined;
     }
-    interface OptionHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface OptionHTMLAttributes extends HTMLAttributes {
         disabled?: boolean | undefined;
         label?: string | undefined;
         selected?: boolean | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-    interface OutputHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface OutputHTMLAttributes extends HTMLAttributes {
         form?: string | undefined;
         htmlFor?: string | undefined;
         name?: string | undefined;
     }
-    interface ParamHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ParamHTMLAttributes extends HTMLAttributes {
         name?: string | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-    interface ProgressHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ProgressHTMLAttributes extends HTMLAttributes {
         max?: number | string | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-    interface SlotHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface SlotHTMLAttributes extends HTMLAttributes {
         name?: string | undefined;
     }
-    interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ScriptHTMLAttributes extends HTMLAttributes {
         async?: boolean | undefined;
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
@@ -421,7 +439,7 @@ declare namespace sjsx {
         src?: string | undefined;
         type?: string | undefined;
     }
-    interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface SelectHTMLAttributes extends HTMLAttributes {
         autoComplete?: string | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
@@ -431,7 +449,7 @@ declare namespace sjsx {
         size?: number | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-    interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface SourceHTMLAttributes extends HTMLAttributes {
         height?: number | string | undefined;
         media?: string | undefined;
         sizes?: string | undefined;
@@ -440,12 +458,12 @@ declare namespace sjsx {
         type?: string | undefined;
         width?: number | string | undefined;
     }
-    interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface StyleHTMLAttributes extends HTMLAttributes {
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
     }
-    interface TableHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface TableHTMLAttributes extends HTMLAttributes {
         align?: "left" | "center" | "right" | undefined;
         bgcolor?: string | undefined;
         border?: number | undefined;
@@ -456,7 +474,7 @@ declare namespace sjsx {
         summary?: string | undefined;
         width?: number | string | undefined;
     }
-    interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface TextareaHTMLAttributes extends HTMLAttributes {
         autoComplete?: string | undefined;
         cols?: number | undefined;
         dirName?: string | undefined;
@@ -472,7 +490,7 @@ declare namespace sjsx {
         value?: string | readonly string[] | number | undefined;
         wrap?: string | undefined;
     }
-    interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface TdHTMLAttributes extends HTMLAttributes {
         align?: "left" | "center" | "right" | "justify" | "char" | undefined;
         colSpan?: number | undefined;
         headers?: string | undefined;
@@ -483,7 +501,7 @@ declare namespace sjsx {
         width?: number | string | undefined;
         valign?: "top" | "middle" | "bottom" | "baseline" | undefined;
     }
-    interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface ThHTMLAttributes extends HTMLAttributes {
         align?: "left" | "center" | "right" | "justify" | "char" | undefined;
         colSpan?: number | undefined;
         headers?: string | undefined;
@@ -491,17 +509,17 @@ declare namespace sjsx {
         scope?: string | undefined;
         abbr?: string | undefined;
     }
-    interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface TimeHTMLAttributes extends HTMLAttributes {
         dateTime?: string | undefined;
     }
-    interface TrackHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface TrackHTMLAttributes extends HTMLAttributes {
         default?: boolean | undefined;
         kind?: string | undefined;
         label?: string | undefined;
         src?: string | undefined;
         srcLang?: string | undefined;
     }
-    interface VideoHTMLAttributes<T> extends MediaHTMLAttributes<T> {
+    interface VideoHTMLAttributes extends MediaHTMLAttributes {
         height?: number | string | undefined;
         playsInline?: boolean | undefined;
         poster?: string | undefined;
@@ -509,7 +527,7 @@ declare namespace sjsx {
         disablePictureInPicture?: boolean | undefined;
         disableRemotePlayback?: boolean | undefined;
     }
-    interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    interface SVGAttributes extends AriaAttributes, DOMAttributes {
         suppressHydrationWarning?: boolean | undefined;
         className?: string | undefined;
         color?: string | undefined;
@@ -785,7 +803,7 @@ declare namespace sjsx {
         z?: number | string | undefined;
         zoomAndPan?: string | undefined;
     }
-    interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
+    interface WebViewHTMLAttributes extends HTMLAttributes {
         allowFullScreen?: boolean | undefined;
         allowpopups?: boolean | undefined;
         autosize?: boolean | undefined;
@@ -816,7 +834,16 @@ declare namespace sjsx {
         "aria-colindextext"?: string | undefined;
         "aria-colspan"?: number | undefined;
         "aria-controls"?: string | undefined;
-        "aria-current"?: boolean | "false" | "true" | "page" | "step" | "location" | "date" | "time" | undefined;
+        "aria-current"?:
+            | boolean
+            | "false"
+            | "true"
+            | "page"
+            | "step"
+            | "location"
+            | "date"
+            | "time"
+            | undefined;
         "aria-describedby"?: string | undefined;
         "aria-description"?: string | undefined;
         "aria-details"?: string | undefined;
@@ -826,7 +853,16 @@ declare namespace sjsx {
         "aria-expanded"?: Booleanish | undefined;
         "aria-flowto"?: string | undefined;
         "aria-grabbed"?: Booleanish | undefined;
-        "aria-haspopup"?: boolean | "false" | "true" | "menu" | "listbox" | "tree" | "grid" | "dialog" | undefined;
+        "aria-haspopup"?:
+            | boolean
+            | "false"
+            | "true"
+            | "menu"
+            | "listbox"
+            | "tree"
+            | "grid"
+            | "dialog"
+            | undefined;
         "aria-hidden"?: Booleanish | undefined;
         "aria-invalid"?: boolean | "false" | "true" | "grammar" | "spelling" | undefined;
         "aria-keyshortcuts"?: string | undefined;
@@ -870,7 +906,7 @@ declare namespace sjsx {
         "aria-valuetext"?: string | undefined;
     }
     type Booleanish = boolean | "true" | "false";
-    interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    interface HTMLAttributes extends AriaAttributes, DOMAttributes {
         defaultChecked?: boolean | undefined;
         defaultValue?: string | number | readonly string[] | undefined;
         suppressContentEditableWarning?: boolean | undefined;
@@ -917,7 +953,16 @@ declare namespace sjsx {
         results?: number | undefined;
         security?: string | undefined;
         unselectable?: "on" | "off" | undefined;
-        inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
+        inputMode?:
+            | "none"
+            | "text"
+            | "tel"
+            | "url"
+            | "email"
+            | "numeric"
+            | "decimal"
+            | "search"
+            | undefined;
         is?: string | undefined;
     }
     type AriaRole =
@@ -993,8 +1038,8 @@ declare namespace sjsx {
         | (string & {});
     export interface CSSProperties extends CSS.Properties<(string & {}) | number> {}
     interface TrustedHTML {}
-    interface DOMAttributes<T> {
-        children?: sjsx.Node | undefined;
+    interface DOMAttributes {
+        children?: hjsx.Node | undefined;
         dangerouslySetInnerHTML?:
             | {
                   __html: string | TrustedHTML;
@@ -1015,11 +1060,9 @@ declare namespace sjsx {
     }
     type JSXElementConstructor<P> =
         | ((props: P, deprecatedLegacyContext?: any) => Node)
-        | (new (props: P, deprecatedLegacyContext?: any) => Component<any, any>);
-    interface Component<P = {}, S = {}, SS = any> {
-        [x: string]: any;
-    }
-    type DetailedHTMLProps<E extends HTMLAttributes<T>, T> = ClassAttributes<T> & E;
+        | (new (props: P, deprecatedLegacyContext?: any) => Component<any>);
+
+    type DetailedHTMLProps<E extends HTMLAttributes> = Attributes & E;
     interface ClassAttributes<T> extends Attributes {
         ref?: LegacyRef<T> | undefined;
     }
@@ -1044,183 +1087,198 @@ declare namespace CSS {
 
 declare namespace JSX {
     interface IntrinsicElements {
-        a: sjsx.DetailedHTMLProps<sjsx.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-        abbr: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        address: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        area: sjsx.DetailedHTMLProps<sjsx.AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
-        article: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        aside: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        audio: sjsx.DetailedHTMLProps<sjsx.AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
-        b: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        base: sjsx.DetailedHTMLProps<sjsx.BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
-        bdi: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        bdo: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        big: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        blockquote: sjsx.DetailedHTMLProps<sjsx.BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-        body: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
-        br: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
-        button: sjsx.DetailedHTMLProps<sjsx.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-        canvas: sjsx.DetailedHTMLProps<sjsx.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
-        caption: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        center: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        cite: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        code: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        col: sjsx.DetailedHTMLProps<sjsx.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        colgroup: sjsx.DetailedHTMLProps<sjsx.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        data: sjsx.DetailedHTMLProps<sjsx.DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
-        datalist: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
-        dd: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        del: sjsx.DetailedHTMLProps<sjsx.DelHTMLAttributes<HTMLModElement>, HTMLModElement>;
-        details: sjsx.DetailedHTMLProps<sjsx.DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>;
-        dfn: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        dialog: sjsx.DetailedHTMLProps<sjsx.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
-        div: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-        dl: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
-        dt: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        em: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        embed: sjsx.DetailedHTMLProps<sjsx.EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
-        fieldset: sjsx.DetailedHTMLProps<sjsx.FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
-        figcaption: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        figure: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        footer: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        form: sjsx.DetailedHTMLProps<sjsx.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
-        h1: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h2: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h3: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h4: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h5: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h6: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        head: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadElement>, HTMLHeadElement>;
-        header: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        hgroup: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        hr: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
-        html: sjsx.DetailedHTMLProps<sjsx.HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
-        i: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        iframe: sjsx.DetailedHTMLProps<sjsx.IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
-        img: sjsx.DetailedHTMLProps<sjsx.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
-        input: sjsx.DetailedHTMLProps<sjsx.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-        ins: sjsx.DetailedHTMLProps<sjsx.InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
-        kbd: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        keygen: sjsx.DetailedHTMLProps<sjsx.KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
-        label: sjsx.DetailedHTMLProps<sjsx.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
-        legend: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
-        li: sjsx.DetailedHTMLProps<sjsx.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
-        link: sjsx.DetailedHTMLProps<sjsx.LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
-        main: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        map: sjsx.DetailedHTMLProps<sjsx.MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
-        mark: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        menu: sjsx.DetailedHTMLProps<sjsx.MenuHTMLAttributes<HTMLElement>, HTMLElement>;
-        menuitem: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        meta: sjsx.DetailedHTMLProps<sjsx.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
-        meter: sjsx.DetailedHTMLProps<sjsx.MeterHTMLAttributes<HTMLMeterElement>, HTMLMeterElement>;
-        nav: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        noindex: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        noscript: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        object: sjsx.DetailedHTMLProps<sjsx.ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
-        ol: sjsx.DetailedHTMLProps<sjsx.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
-        optgroup: sjsx.DetailedHTMLProps<sjsx.OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
-        option: sjsx.DetailedHTMLProps<sjsx.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
-        output: sjsx.DetailedHTMLProps<sjsx.OutputHTMLAttributes<HTMLOutputElement>, HTMLOutputElement>;
-        p: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
-        param: sjsx.DetailedHTMLProps<sjsx.ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
-        picture: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        pre: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
-        progress: sjsx.DetailedHTMLProps<sjsx.ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
-        q: sjsx.DetailedHTMLProps<sjsx.QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-        rp: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        rt: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        ruby: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        s: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        samp: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        search: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        slot: sjsx.DetailedHTMLProps<sjsx.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
-        script: sjsx.DetailedHTMLProps<sjsx.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
-        section: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        select: sjsx.DetailedHTMLProps<sjsx.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
-        small: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        source: sjsx.DetailedHTMLProps<sjsx.SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
-        span: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
-        strong: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        style: sjsx.DetailedHTMLProps<sjsx.StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
-        sub: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        summary: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        sup: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        table: sjsx.DetailedHTMLProps<sjsx.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
-        template: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
-        tbody: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        td: sjsx.DetailedHTMLProps<sjsx.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
-        textarea: sjsx.DetailedHTMLProps<sjsx.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
-        tfoot: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        th: sjsx.DetailedHTMLProps<sjsx.ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
-        thead: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        time: sjsx.DetailedHTMLProps<sjsx.TimeHTMLAttributes<HTMLTimeElement>, HTMLTimeElement>;
-        title: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
-        tr: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
-        track: sjsx.DetailedHTMLProps<sjsx.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
-        u: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        ul: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-        var: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        video: sjsx.DetailedHTMLProps<sjsx.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
-        wbr: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
-        webview: sjsx.DetailedHTMLProps<sjsx.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
-        svg: sjsx.SVGProps<SVGSVGElement>;
-        animate: sjsx.SVGProps<SVGElement>;
-        animateMotion: sjsx.SVGProps<SVGElement>;
-        animateTransform: sjsx.SVGProps<SVGElement>;
-        circle: sjsx.SVGProps<SVGCircleElement>;
-        clipPath: sjsx.SVGProps<SVGClipPathElement>;
-        defs: sjsx.SVGProps<SVGDefsElement>;
-        desc: sjsx.SVGProps<SVGDescElement>;
-        ellipse: sjsx.SVGProps<SVGEllipseElement>;
-        feBlend: sjsx.SVGProps<SVGFEBlendElement>;
-        feColorMatrix: sjsx.SVGProps<SVGFEColorMatrixElement>;
-        feComponentTransfer: sjsx.SVGProps<SVGFEComponentTransferElement>;
-        feComposite: sjsx.SVGProps<SVGFECompositeElement>;
-        feConvolveMatrix: sjsx.SVGProps<SVGFEConvolveMatrixElement>;
-        feDiffuseLighting: sjsx.SVGProps<SVGFEDiffuseLightingElement>;
-        feDisplacementMap: sjsx.SVGProps<SVGFEDisplacementMapElement>;
-        feDistantLight: sjsx.SVGProps<SVGFEDistantLightElement>;
-        feDropShadow: sjsx.SVGProps<SVGFEDropShadowElement>;
-        feFlood: sjsx.SVGProps<SVGFEFloodElement>;
-        feFuncA: sjsx.SVGProps<SVGFEFuncAElement>;
-        feFuncB: sjsx.SVGProps<SVGFEFuncBElement>;
-        feFuncG: sjsx.SVGProps<SVGFEFuncGElement>;
-        feFuncR: sjsx.SVGProps<SVGFEFuncRElement>;
-        feGaussianBlur: sjsx.SVGProps<SVGFEGaussianBlurElement>;
-        feImage: sjsx.SVGProps<SVGFEImageElement>;
-        feMerge: sjsx.SVGProps<SVGFEMergeElement>;
-        feMergeNode: sjsx.SVGProps<SVGFEMergeNodeElement>;
-        feMorphology: sjsx.SVGProps<SVGFEMorphologyElement>;
-        feOffset: sjsx.SVGProps<SVGFEOffsetElement>;
-        fePointLight: sjsx.SVGProps<SVGFEPointLightElement>;
-        feSpecularLighting: sjsx.SVGProps<SVGFESpecularLightingElement>;
-        feSpotLight: sjsx.SVGProps<SVGFESpotLightElement>;
-        feTile: sjsx.SVGProps<SVGFETileElement>;
-        feTurbulence: sjsx.SVGProps<SVGFETurbulenceElement>;
-        filter: sjsx.SVGProps<SVGFilterElement>;
-        foreignObject: sjsx.SVGProps<SVGForeignObjectElement>;
-        g: sjsx.SVGProps<SVGGElement>;
-        image: sjsx.SVGProps<SVGImageElement>;
-        line: sjsx.SVGLineElementAttributes<SVGLineElement>;
-        linearGradient: sjsx.SVGProps<SVGLinearGradientElement>;
-        marker: sjsx.SVGProps<SVGMarkerElement>;
-        mask: sjsx.SVGProps<SVGMaskElement>;
-        metadata: sjsx.SVGProps<SVGMetadataElement>;
-        mpath: sjsx.SVGProps<SVGElement>;
-        path: sjsx.SVGProps<SVGPathElement>;
-        pattern: sjsx.SVGProps<SVGPatternElement>;
-        polygon: sjsx.SVGProps<SVGPolygonElement>;
-        polyline: sjsx.SVGProps<SVGPolylineElement>;
-        radialGradient: sjsx.SVGProps<SVGRadialGradientElement>;
-        rect: sjsx.SVGProps<SVGRectElement>;
-        stop: sjsx.SVGProps<SVGStopElement>;
-        switch: sjsx.SVGProps<SVGSwitchElement>;
-        symbol: sjsx.SVGProps<SVGSymbolElement>;
-        text: sjsx.SVGTextElementAttributes<SVGTextElement>;
-        textPath: sjsx.SVGProps<SVGTextPathElement>;
-        tspan: sjsx.SVGProps<SVGTSpanElement>;
-        use: sjsx.SVGProps<SVGUseElement>;
-        view: sjsx.SVGProps<SVGViewElement>;
+        a: hjsx.DetailedHTMLProps<hjsx.AnchorHTMLAttributes>;
+        abbr: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        address: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        area: hjsx.DetailedHTMLProps<hjsx.AreaHTMLAttributes>;
+        article: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        aside: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        audio: hjsx.DetailedHTMLProps<hjsx.AudioHTMLAttributes>;
+        b: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        base: hjsx.DetailedHTMLProps<hjsx.BaseHTMLAttributes>;
+        bdi: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        bdo: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        big: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        blockquote: hjsx.DetailedHTMLProps<hjsx.BlockquoteHTMLAttributes>;
+        body: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        br: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        button: hjsx.DetailedHTMLProps<hjsx.ButtonHTMLAttributes>;
+        canvas: hjsx.DetailedHTMLProps<hjsx.CanvasHTMLAttributes>;
+        caption: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        center: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        cite: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        code: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        col: hjsx.DetailedHTMLProps<hjsx.ColHTMLAttributes>;
+        colgroup: hjsx.DetailedHTMLProps<hjsx.ColgroupHTMLAttributes>;
+        data: hjsx.DetailedHTMLProps<hjsx.DataHTMLAttributes>;
+        datalist: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        dd: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        del: hjsx.DetailedHTMLProps<hjsx.DelHTMLAttributes>;
+        details: hjsx.DetailedHTMLProps<hjsx.DetailsHTMLAttributes>;
+        dfn: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        dialog: hjsx.DetailedHTMLProps<hjsx.DialogHTMLAttributes>;
+        div: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        dl: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        dt: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        em: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        embed: hjsx.DetailedHTMLProps<hjsx.EmbedHTMLAttributes>;
+        fieldset: hjsx.DetailedHTMLProps<hjsx.FieldsetHTMLAttributes>;
+        figcaption: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        figure: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        footer: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        form: hjsx.DetailedHTMLProps<hjsx.FormHTMLAttributes>;
+        h1: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        h2: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        h3: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        h4: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        h5: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        h6: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        head: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        header: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        hgroup: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        hr: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        html: hjsx.DetailedHTMLProps<hjsx.HtmlHTMLAttributes>;
+        i: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        iframe: hjsx.DetailedHTMLProps<hjsx.IframeHTMLAttributes>;
+        img: hjsx.DetailedHTMLProps<hjsx.ImgHTMLAttributes>;
+        input: hjsx.DetailedHTMLProps<hjsx.InputHTMLAttributes>;
+        ins: hjsx.DetailedHTMLProps<hjsx.InsHTMLAttributes>;
+        kbd: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        keygen: hjsx.DetailedHTMLProps<hjsx.KeygenHTMLAttributes>;
+        label: hjsx.DetailedHTMLProps<hjsx.LabelHTMLAttributes>;
+        legend: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        li: hjsx.DetailedHTMLProps<hjsx.LiHTMLAttributes>;
+        link: hjsx.DetailedHTMLProps<hjsx.LinkHTMLAttributes>;
+        main: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        map: hjsx.DetailedHTMLProps<hjsx.MapHTMLAttributes>;
+        mark: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        menu: hjsx.DetailedHTMLProps<hjsx.MenuHTMLAttributes>;
+        menuitem: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        meta: hjsx.DetailedHTMLProps<hjsx.MetaHTMLAttributes>;
+        meter: hjsx.DetailedHTMLProps<hjsx.MeterHTMLAttributes>;
+        nav: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        noindex: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        noscript: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        object: hjsx.DetailedHTMLProps<hjsx.ObjectHTMLAttributes>;
+        ol: hjsx.DetailedHTMLProps<hjsx.OlHTMLAttributes>;
+        optgroup: hjsx.DetailedHTMLProps<hjsx.OptgroupHTMLAttributes>;
+        option: hjsx.DetailedHTMLProps<hjsx.OptionHTMLAttributes>;
+        output: hjsx.DetailedHTMLProps<hjsx.OutputHTMLAttributes>;
+        p: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        param: hjsx.DetailedHTMLProps<hjsx.ParamHTMLAttributes>;
+        picture: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        pre: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        progress: hjsx.DetailedHTMLProps<hjsx.ProgressHTMLAttributes>;
+        q: hjsx.DetailedHTMLProps<hjsx.QuoteHTMLAttributes>;
+        rp: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        rt: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        ruby: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        s: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        samp: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        search: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        slot: hjsx.DetailedHTMLProps<hjsx.SlotHTMLAttributes>;
+        script: hjsx.DetailedHTMLProps<hjsx.ScriptHTMLAttributes>;
+        section: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        select: hjsx.DetailedHTMLProps<hjsx.SelectHTMLAttributes>;
+        small: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        source: hjsx.DetailedHTMLProps<hjsx.SourceHTMLAttributes>;
+        span: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        strong: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        style: hjsx.DetailedHTMLProps<hjsx.StyleHTMLAttributes>;
+        sub: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        summary: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        sup: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        table: hjsx.DetailedHTMLProps<hjsx.TableHTMLAttributes>;
+        template: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        tbody: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        td: hjsx.DetailedHTMLProps<hjsx.TdHTMLAttributes>;
+        textarea: hjsx.DetailedHTMLProps<hjsx.TextareaHTMLAttributes>;
+        tfoot: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        th: hjsx.DetailedHTMLProps<hjsx.ThHTMLAttributes>;
+        thead: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        time: hjsx.DetailedHTMLProps<hjsx.TimeHTMLAttributes>;
+        title: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        tr: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        track: hjsx.DetailedHTMLProps<hjsx.TrackHTMLAttributes>;
+        u: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        ul: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        var: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        video: hjsx.DetailedHTMLProps<hjsx.VideoHTMLAttributes>;
+        wbr: hjsx.DetailedHTMLProps<hjsx.HTMLAttributes>;
+        webview: hjsx.DetailedHTMLProps<hjsx.WebViewHTMLAttributes>;
+        svg: hjsx.SVGProps<SVGSVGElement>;
+        animate: hjsx.SVGProps<SVGElement>;
+        animateMotion: hjsx.SVGProps<SVGElement>;
+        animateTransform: hjsx.SVGProps<SVGElement>;
+        circle: hjsx.SVGProps<SVGCircleElement>;
+        clipPath: hjsx.SVGProps<SVGClipPathElement>;
+        defs: hjsx.SVGProps<SVGDefsElement>;
+        desc: hjsx.SVGProps<SVGDescElement>;
+        ellipse: hjsx.SVGProps<SVGEllipseElement>;
+        feBlend: hjsx.SVGProps<SVGFEBlendElement>;
+        feColorMatrix: hjsx.SVGProps<SVGFEColorMatrixElement>;
+        feComponentTransfer: hjsx.SVGProps<SVGFEComponentTransferElement>;
+        feComposite: hjsx.SVGProps<SVGFECompositeElement>;
+        feConvolveMatrix: hjsx.SVGProps<SVGFEConvolveMatrixElement>;
+        feDiffuseLighting: hjsx.SVGProps<SVGFEDiffuseLightingElement>;
+        feDisplacementMap: hjsx.SVGProps<SVGFEDisplacementMapElement>;
+        feDistantLight: hjsx.SVGProps<SVGFEDistantLightElement>;
+        feDropShadow: hjsx.SVGProps<SVGFEDropShadowElement>;
+        feFlood: hjsx.SVGProps<SVGFEFloodElement>;
+        feFuncA: hjsx.SVGProps<SVGFEFuncAElement>;
+        feFuncB: hjsx.SVGProps<SVGFEFuncBElement>;
+        feFuncG: hjsx.SVGProps<SVGFEFuncGElement>;
+        feFuncR: hjsx.SVGProps<SVGFEFuncRElement>;
+        feGaussianBlur: hjsx.SVGProps<SVGFEGaussianBlurElement>;
+        feImage: hjsx.SVGProps<SVGFEImageElement>;
+        feMerge: hjsx.SVGProps<SVGFEMergeElement>;
+        feMergeNode: hjsx.SVGProps<SVGFEMergeNodeElement>;
+        feMorphology: hjsx.SVGProps<SVGFEMorphologyElement>;
+        feOffset: hjsx.SVGProps<SVGFEOffsetElement>;
+        fePointLight: hjsx.SVGProps<SVGFEPointLightElement>;
+        feSpecularLighting: hjsx.SVGProps<SVGFESpecularLightingElement>;
+        feSpotLight: hjsx.SVGProps<SVGFESpotLightElement>;
+        feTile: hjsx.SVGProps<SVGFETileElement>;
+        feTurbulence: hjsx.SVGProps<SVGFETurbulenceElement>;
+        filter: hjsx.SVGProps<SVGFilterElement>;
+        foreignObject: hjsx.SVGProps<SVGForeignObjectElement>;
+        g: hjsx.SVGProps<SVGGElement>;
+        image: hjsx.SVGProps<SVGImageElement>;
+        line: hjsx.SVGLineElementAttributes<SVGLineElement>;
+        linearGradient: hjsx.SVGProps<SVGLinearGradientElement>;
+        marker: hjsx.SVGProps<SVGMarkerElement>;
+        mask: hjsx.SVGProps<SVGMaskElement>;
+        metadata: hjsx.SVGProps<SVGMetadataElement>;
+        mpath: hjsx.SVGProps<SVGElement>;
+        path: hjsx.SVGProps<SVGPathElement>;
+        pattern: hjsx.SVGProps<SVGPatternElement>;
+        polygon: hjsx.SVGProps<SVGPolygonElement>;
+        polyline: hjsx.SVGProps<SVGPolylineElement>;
+        radialGradient: hjsx.SVGProps<SVGRadialGradientElement>;
+        rect: hjsx.SVGProps<SVGRectElement>;
+        stop: hjsx.SVGProps<SVGStopElement>;
+        switch: hjsx.SVGProps<SVGSwitchElement>;
+        symbol: hjsx.SVGProps<SVGSymbolElement>;
+        text: hjsx.SVGTextElementAttributes<SVGTextElement>;
+        textPath: hjsx.SVGProps<SVGTextPathElement>;
+        tspan: hjsx.SVGProps<SVGTSpanElement>;
+        use: hjsx.SVGProps<SVGUseElement>;
+        view: hjsx.SVGProps<SVGViewElement>;
+    }
+    interface Element extends hjsx.Element<any, any> {
+        render(): string;
+    }
+    interface ElementAttributesProperty extends hjsx.ElementAttributesProperty {}
+    interface ElementChildrenAttribute extends hjsx.ElementChildrenAttribute {}
+    type LibraryManagedAttributes<C, P> = C extends { defaultProps: infer D } ? D & P : P;
+    interface IntrinsicAttributes extends hjsx.Attributes {}
+    interface IntrinsicClassAttributes<T> extends hjsx.Attributes {
+        /**
+         * Allows getting a ref to the component instance.
+         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
+         * @see https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom
+         */
+        ref?: hjsx.LegacyRef<T> | undefined;
     }
 }
 interface Element {}
@@ -1344,7 +1402,7 @@ interface SVGTSpanElement extends SVGElement {}
 interface SVGUseElement extends SVGElement {}
 interface SVGViewElement extends SVGElement {}
 type RenderProps = {
-    type: sjsx.Element["type"];
-    props?: sjsx.Element["props"];
-    children?: sjsx.Node;
+    type: hjsx.Element["type"];
+    props?: hjsx.Element["props"];
+    children?: hjsx.Node;
 };

@@ -2,7 +2,9 @@
     "name": "hjsx",
     "version": "0.1.0",
     "module": "hjsx.ts",
+    "main": "hjsx.js",
     "type": "module",
+    "types": "types.d.ts",
     "devDependencies": {
         "@types/bun": "latest"
     },

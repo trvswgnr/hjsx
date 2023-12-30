@@ -1,6 +1,8 @@
-import { sjsx, sjsxFragment } from "./sjsx";
+import { hjsx, fragment } from "./hjsx";
 
-export function Button({ children, ...props }: sjsx.PropsWithChildren<sjsx.ButtonHTMLAttributes<HTMLButtonElement>>) {
+type Props = hjsx.PropsWithChildren<hjsx.ButtonHTMLAttributes>
+
+export function Button({ children, ...props }: Props) {
     return (
         <>
             <button {...props}>{children}</button>
@@ -8,10 +10,8 @@ export function Button({ children, ...props }: sjsx.PropsWithChildren<sjsx.Butto
     );
 }
 
-export function Page() {
-    return (
-        <main className="hello">
-            <Button className="hi" type="button">Click me</Button>
-        </main>
-    );
-}
+export const Page = (
+    <main className="tr4vvy-r00lz">
+        <Button className="nice" type="button">Click me</Button>
+    </main>
+);

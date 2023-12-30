@@ -18,12 +18,12 @@ const args = process.argv.slice(2);
 const config = { args, options };
 
 await build();
-await updateVersion();
+const [oldVersion, newVersion] = await updateVersion();
 await runTests();
 await commitAndPush();
 await publish();
 
-console.log("published to npm!");
+console.log(`published! v${oldVersion} -> v${newVersion}`);
 
 async function build() {
     const { exited } = Bun.spawn(["bun", "run", "build"]);
@@ -59,7 +59,7 @@ async function commitAndPush() {
     }
 }
 
-async function updateVersion() {
+async function updateVersion(): Promise<[SemVer, SemVer]> {
     const parsed = parseArgs(config);
     const file = Bun.file("package.json");
     const pkg = await file.json<Package>();
@@ -69,7 +69,7 @@ async function updateVersion() {
     const writer = file.writer();
     writer.write(JSON.stringify(pkg, null, 4));
     await writer.end();
-    return newVersion;
+    return [version, newVersion];
 }
 
 function getNewVersion(version: SemVer, parsedArgs: ParsedArgs): SemVer {

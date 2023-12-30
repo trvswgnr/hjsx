@@ -149,6 +149,7 @@ async function updateReadmeTestsBadge(testsPassed: boolean): Promise<boolean> {
     const contents = await file.text();
     const updated = contents.replace(/!\[tests\].+/, link);
     if (contents === updated) {
+        console.log("README.md tests badge is already up to date");
         return false;
     }
     const writer = file.writer();

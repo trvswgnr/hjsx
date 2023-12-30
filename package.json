@@ -5,6 +5,10 @@
     "main": "hjsx.js",
     "type": "module",
     "types": "types.d.ts",
+    "scripts": {
+        "build": "bun build hjsx.ts --outfile hjsx.js --target node",
+        "prepublish": "bun run build && bun run util/update-version.ts"
+    },
     "devDependencies": {
         "@types/bun": "latest"
     },

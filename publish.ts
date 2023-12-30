@@ -1,13 +1,29 @@
-/**
- * This script is used to do the following:
- * 1. Build the project
- * 2. Update the version in package.json
- * 3. Run tests
- * 4. Commit and push changes
- */
-
 import { colors } from "./util";
 import { parseArgs } from "node:util";
+
+/**
+ * this script is used to do the following:
+ *
+ * 1. build the project
+ * 2. update the version in package.json
+ * 3. run tests
+ * 4. update the tests badge in README.md
+ * 5. commit and push changes to github
+ * 6. publish to npm
+ *
+ * ## usage:
+ *
+ * ```sh
+ * # patch version
+ * $ bun publish.js -p
+ *
+ * # minor version
+ * $ node publish.js -m
+ *
+ * # major version
+ * $ node publish.js -M
+ * ```
+ */
 
 const options = {
     patch: {
@@ -31,7 +47,7 @@ const quietSpawnOptions = {
 } as const;
 
 await build();
-const [oldVersion, newVersion] = await updateVersion();
+const [oldVersion, newVersion] = await updatePkgVersion();
 const testsPassed = await runTests();
 const readmeUpdated = await updateReadmeTestsBadge(testsPassed);
 const changedFiles = await getChangedFiles();
@@ -90,10 +106,7 @@ async function commitAndPush(changedFiles: string[]): Promise<void> {
         const stderr = await Bun.readableStreamToText(process.stderr);
         throw new Error(`git add failed: ${stderr}`);
     }
-    process = Bun.spawn(
-        ["git", "commit", "-m", "'updated, tested'"],
-        quietSpawnOptions,
-    );
+    process = Bun.spawn(["git", "commit", "-m", "'updated, tested'"], quietSpawnOptions);
     exitCode = await process.exited;
     if (exitCode !== 0) {
         const stderr = await Bun.readableStreamToText(process.stderr);
@@ -108,7 +121,7 @@ async function commitAndPush(changedFiles: string[]): Promise<void> {
     console.log("committed and pushed to github");
 }
 
-async function updateVersion(): Promise<[SemVer, SemVer]> {
+async function updatePkgVersion(): Promise<[SemVer, SemVer]> {
     console.log("updating version...");
     const parsed = parseArgs(config);
     const file = Bun.file("package.json");

@@ -44,25 +44,12 @@ await main();
  * ```
  */
 async function main() {
-    let promise = build().then(() => true);
-    pollPromise(promise, 1000, (value) => {
-        if (value) {
-            console.log("build complete!");
-        }
-    });
-    updatePkgVersion().then(([oldVersion, newVersion]) => {});
-    const testsPassed = await runTests();
+    const promiseResults = await Promise.all([updatePkgVersion(), runTests(), build()]);
+    const [[oldVersion, newVersion], testsPassed] = promiseResults;
     const readmeUpdated = await updateReadmeTestsBadge(testsPassed);
     const changedFiles = await getChangedFiles();
     await commitAndPush(changedFiles);
     await publish(oldVersion, newVersion);
-}
-
-function pollPromise<T>(promise: Promise<T>, interval: number, callback: (value: T) => void) {
-    promise.then((value) => {
-        callback(value);
-        setTimeout(() => pollPromise(promise, interval, callback), interval);
-    });
 }
 
 async function getChangedFiles(): Promise<string[]> {
@@ -77,7 +64,7 @@ async function getChangedFiles(): Promise<string[]> {
     return changed;
 }
 
-async function build() {
+async function build(): Promise<void> {
     console.log("building...");
     const { exited } = Bun.spawn(["bun", "run", "build"]);
     const exitCode = await exited;

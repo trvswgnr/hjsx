@@ -1,6 +1,6 @@
 {
     "name": "hjsx",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "module": "hjsx.ts",
     "main": "hjsx.js",
     "type": "module",

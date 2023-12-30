@@ -1,6 +1,9 @@
 import { colors } from "./util";
 import { parseArgs } from "node:util";
 
+const { config, quietSpawnOptions } = getConfig();
+await main();
+
 /**
  * this script is used to do the following:
  *
@@ -13,46 +16,42 @@ import { parseArgs } from "node:util";
  *
  * ## usage:
  *
+ * patch version:
  * ```sh
- * # patch version
- * $ bun publish.js -p
+ * bun publish.ts --patch
+ * # or
+ * bun publish.ts -p
+ * ```
  *
- * # minor version
- * $ node publish.js -m
+ * minor version:
+ * ```sh
+ * bun publish.ts --minor
+ * # or
+ * bun publish.ts -m
+ * ```
  *
+ * major version:
+ * ```sh
  * # major version
- * $ node publish.js -M
+ * bun publish.ts --major
+ * # or
+ * bun publish.ts -M
+ *```
+ *
+ * no version change:
+ * ```sh
+ * bun publish.ts # no args
  * ```
  */
-
-const options = {
-    patch: {
-        type: "boolean",
-        short: "p",
-    },
-    minor: {
-        type: "boolean",
-        short: "m",
-    },
-    major: {
-        type: "boolean",
-        short: "M",
-    },
-} as const;
-const args = process.argv.slice(2);
-const config = { args, options };
-const quietSpawnOptions = {
-    stdout: "pipe",
-    stderr: "pipe",
-} as const;
-
-await build();
-const [oldVersion, newVersion] = await updatePkgVersion();
-const testsPassed = await runTests();
-const readmeUpdated = await updateReadmeTestsBadge(testsPassed);
-const changedFiles = await getChangedFiles();
-await commitAndPush(changedFiles);
-await publish(oldVersion, newVersion);
+async function main() {
+    await build();
+    const [oldVersion, newVersion] = await updatePkgVersion();
+    const testsPassed = await runTests();
+    const readmeUpdated = await updateReadmeTestsBadge(testsPassed);
+    const changedFiles = await getChangedFiles();
+    await commitAndPush(changedFiles);
+    await publish(oldVersion, newVersion);
+}
 
 async function getChangedFiles(): Promise<string[]> {
     console.log("getting changed files...");
@@ -169,6 +168,29 @@ async function updateReadmeTestsBadge(testsPassed: boolean): Promise<boolean> {
     writer.write(updated);
     await writer.end();
     return true;
+}
+function getConfig() {
+    const options = {
+        patch: {
+            type: "boolean",
+            short: "p",
+        },
+        minor: {
+            type: "boolean",
+            short: "m",
+        },
+        major: {
+            type: "boolean",
+            short: "M",
+        },
+    } as const;
+    const args = process.argv.slice(2);
+    const config = { args, options };
+    const quietSpawnOptions = {
+        stdout: "pipe",
+        stderr: "pipe",
+    } as const;
+    return { config, quietSpawnOptions };
 }
 
 type Package = {

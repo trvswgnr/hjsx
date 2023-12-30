@@ -35,7 +35,7 @@ Then you'll need to update your tsconfig.json to use the `react-jsx` compiler op
 Now you can use JSX in your code:
 
 ```tsx
-import type { hjsx } from "hjsx";
+import { type hjsx } from "hjsx";
 type MyComponentProps = hjsx.Attributes & {};
 export function MyComponent(props: MyComponentProps) {
     return (

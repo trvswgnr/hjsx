@@ -5,8 +5,8 @@
     "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "react",
-    "jsxFactory": "sjsx",
-    "jsxFragmentFactory": "sjsxFragment",
+    "jsxFactory": "hjsx",
+    "jsxFragmentFactory": "fragment",
     "allowJs": true,
 
     /* Bundler mode */

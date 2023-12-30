@@ -1,13 +1,13 @@
 {
     "name": "hjsx",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "module": "hjsx.ts",
     "main": "hjsx.js",
     "type": "module",
     "types": "types.d.ts",
     "scripts": {
         "build": "bun build hjsx.ts --outfile hjsx.js --target node",
-        "prepublish": "bun run build && bun run util/update-version.ts"
+        "prepare": "bun run build && bun run util/update-version.ts"
     },
     "devDependencies": {
         "@types/bun": "latest"

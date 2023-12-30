@@ -86,3 +86,22 @@ export function handleStyle(value: unknown): string {
 function toKebabCase(str: string) {
     return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
 }
+
+export const SELF_CLOSING_TAGS = [
+    "area",
+    "base",
+    "br",
+    "col",
+    "command",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "keygen",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr",
+];

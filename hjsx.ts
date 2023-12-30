@@ -1,33 +1,4 @@
-import {
-    escapeHtml,
-    normalizeAttributeName,
-    isNullish,
-    isPrimitive,
-    dangerouslySetInnerHTML,
-    handleStyle,
-    isIterable,
-    isClassConstructor,
-    isObject,
-} from "./util";
-
-const SELF_CLOSING_TAGS = [
-    "area",
-    "base",
-    "br",
-    "col",
-    "command",
-    "embed",
-    "hr",
-    "img",
-    "input",
-    "keygen",
-    "link",
-    "meta",
-    "param",
-    "source",
-    "track",
-    "wbr",
-];
+import * as u from "./util";
 
 export function hjsx(
     type: hjsx.Element["type"],
@@ -54,32 +25,32 @@ export function fragment({ children }: hjsx.RenderProps) {
 
 // Refactored to use functional programming style
 export const renderToString = (component?: unknown): string => {
-    if (isPrimitive(component)) return escapeHtml(String(component));
-    if (isNullish(component)) return "";
-    if (isIterable(component)) return renderChildren({ children: component });
-    if (!isObject(component)) return "";
+    if (u.isPrimitive(component)) return u.escapeHtml(String(component));
+    if (u.isNullish(component)) return "";
+    if (u.isIterable(component)) return renderChildren({ children: component });
+    if (!u.isObject(component)) return "";
     if (!("children" in component)) return renderChildren({ children: component });
     validateElement(component);
 
     let { type, props, children } = component;
     if (typeof type === "function") {
-        const componentInstance = isClassConstructor(type)
+        const componentInstance = u.isClassConstructor(type)
             ? new type({ ...props, children })
             : type({ ...props, children });
         return renderToString(componentInstance);
     }
 
-    const innerHTML = props.dangerouslySetInnerHTML
-        ? dangerouslySetInnerHTML(props.dangerouslySetInnerHTML)
+    const innerHTML = props.u.dangerouslySetInnerHTML
+        ? u.dangerouslySetInnerHTML(props.u.dangerouslySetInnerHTML)
         : null;
     const propsString = Object.entries(props)
         .filter(
-            ([key, value]) => key !== "dangerouslySetInnerHTML" && value !== false && value != null,
+            ([key, value]) => key !== "u.dangerouslySetInnerHTML" && value !== false && value != null,
         )
         .map(([key, value]) => {
-            const normalizedKey = normalizeAttributeName(key);
-            const normalizedValue = escapeHtml(
-                String(key === "style" ? handleStyle(value) : value),
+            const normalizedKey = u.normalizeAttributeName(key);
+            const normalizedValue = u.escapeHtml(
+                String(key === "style" ? u.handleStyle(value) : value),
             );
             return value === true ? normalizedKey : `${normalizedKey}="${normalizedValue}"`;
         })
@@ -91,20 +62,20 @@ export const renderToString = (component?: unknown): string => {
         return renderToString({ type, props, children });
     }
 
-    return SELF_CLOSING_TAGS.includes(type)
+    return u.SELF_CLOSING_TAGS.includes(type)
         ? `<${type} ${propsString} />`
         : `<${type} ${propsString}>${childrenString}</${type}>`;
 };
 
 // Refactored to use functional programming style
 const renderChildren = (args: unknown): string => {
-    if (isNullish(args)) return "";
-    if (isPrimitive(args)) return escapeHtml(String(args));
-    if (!isObject(args)) return "";
+    if (u.isNullish(args)) return "";
+    if (u.isPrimitive(args)) return u.escapeHtml(String(args));
+    if (!u.isObject(args)) return "";
     const { children } = args;
     const childrenArray = Array.isArray(children) ? children : [children];
     return childrenArray
-        .filter((child) => !isNullish(child))
+        .filter((child) => !u.isNullish(child))
         .map(renderToString)
         .join("");
 };
@@ -112,7 +83,7 @@ const renderChildren = (args: unknown): string => {
 function validateElement(
     element: unknown,
 ): asserts element is hjsx.PropsWithChildren<hjsx.Element> {
-    if (!isObject(element)) {
+    if (!u.isObject(element)) {
         throw new Error("Element must be an object");
     }
     if (!("type" in element)) {

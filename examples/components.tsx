@@ -1,4 +1,5 @@
-import "./hjsx";
+import "../hjsx";
+
 type Props = hjsx.PropsWithChildren<hjsx.ButtonHTMLAttributes>
 
 export function Button({ children, ...props }: Props) {

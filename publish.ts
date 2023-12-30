@@ -68,7 +68,10 @@ async function build(): Promise<boolean> {
     console.log("building...");
     const { exited } = Bun.spawn(["bun", "run", "build"], quietSpawnOptions);
     const exitCode = await exited;
-    return exitCode === 0;
+    const success = exitCode === 0;
+    const message = success ? colors.green("build successful!") : colors.red("build failed!");
+    console.log(message);
+    return success;
 }
 
 async function publish(oldVersion: SemVer, newVersion: SemVer) {
@@ -132,6 +135,11 @@ async function updatePkgVersion(): Promise<[SemVer, SemVer]> {
     const writer = file.writer();
     writer.write(JSON.stringify(pkg, null, 4));
     await writer.end();
+    if (version === newVersion) {
+        console.log("package version is already up to date");
+        return [version, newVersion];
+    }
+    console.log(`${colors.green("updated version")} ${colors.gray(version)} → ${colors.gray(newVersion)}`);
     return [version, newVersion];
 }
 

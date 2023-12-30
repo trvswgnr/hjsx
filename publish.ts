@@ -45,7 +45,7 @@ async function getChangedFiles(): Promise<string[]> {
     const changed = stdout.split("\n").filter(Boolean);
     if (changed.length) {
         console.log("changed files:");
-        changed.forEach((file) => console.log(`  ${file}`));
+        changed.forEach((file) => console.log(`-  ${file}`));
     }
     return changed;
 }

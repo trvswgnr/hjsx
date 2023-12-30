@@ -44,8 +44,8 @@ await main();
  * ```
  */
 async function main() {
-    const promiseResults = await Promise.all([updatePkgVersion(), runTests(), build()]);
-    const [[oldVersion, newVersion], testsPassed] = promiseResults;
+    const promiseResults = await Promise.all([build(), updatePkgVersion(), runTests()]);
+    const [buildSuccessful, [oldVersion, newVersion], testsPassed] = promiseResults;
     const readmeUpdated = await updateReadmeTestsBadge(testsPassed);
     const changedFiles = await getChangedFiles();
     await commitAndPush(changedFiles);
@@ -64,13 +64,11 @@ async function getChangedFiles(): Promise<string[]> {
     return changed;
 }
 
-async function build(): Promise<void> {
+async function build(): Promise<boolean> {
     console.log("building...");
-    const { exited } = Bun.spawn(["bun", "run", "build"]);
+    const { exited } = Bun.spawn(["bun", "run", "build"], quietSpawnOptions);
     const exitCode = await exited;
-    if (exitCode !== 0) {
-        throw new Error("build failed");
-    }
+    return exitCode === 0;
 }
 
 async function publish(oldVersion: SemVer, newVersion: SemVer) {

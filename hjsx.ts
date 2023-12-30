@@ -30,33 +30,23 @@ const SELF_CLOSING_TAGS = [
     "wbr",
 ];
 
-type HjsxReturn = {
-    $$typeof: symbol;
-    type: any;
-    key: any;
-    ref: any;
-    props: any;
-    _owner: any;
-};
-
 export const hjsx = (
     type: hjsx.Element["type"],
     props?: hjsx.Element["props"],
     children?: hjsx.Node,
-): HjsxReturn => {
-    const component = {
-        $$typeof: Symbol.for("hjsx.element"),
+) => {
+    return {
         type,
-        ref: null,
-        _owner: null,
         props,
         children,
-        key: null,
         render() {
             return renderToString(this);
         },
+        $$typeof: Symbol.for("hjsx.element"),
+        key: null,
+        ref: null,
+        _owner: null,
     };
-    return component;
 };
 
 export const fragment: (props: RenderProps) => hjsx.Node = ({ children }: RenderProps) => children;

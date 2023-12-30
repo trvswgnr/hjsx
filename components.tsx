@@ -1,6 +1,6 @@
-import { h, Fragment } from "./jsx";
+import { sjsx, sjsxFragment } from "./sjsx";
 
-export function Button({ children, ...props }: React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>) {
+export function Button({ children, ...props }: sjsx.PropsWithChildren<sjsx.ButtonHTMLAttributes<HTMLButtonElement>>) {
     return (
         <>
             <button {...props}>{children}</button>

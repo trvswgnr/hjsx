@@ -1,3 +1,4 @@
+import { colors } from "./util";
 import { parseArgs } from "node:util";
 
 const options = {
@@ -25,12 +26,13 @@ await build();
 const [oldVersion, newVersion] = await updateVersion();
 await runTests();
 await commitAndPush();
+
 if (oldVersion !== newVersion) {
     await publish();
+    console.log(`\n${colors.green("published!")} v${oldVersion} -> v${newVersion}`);
+} else {
+    console.log(`\n${colors.gray("(not published)")} v${oldVersion} == v${newVersion}`);
 }
-
-const green = (text: string) => `\x1b[32m${text}\x1b[0m`;
-console.log(`\n${green("published!")} v${oldVersion} -> v${newVersion}`);
 
 async function build() {
     console.log("building...");

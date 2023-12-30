@@ -105,3 +105,18 @@ export const SELF_CLOSING_TAGS = [
     "track",
     "wbr",
 ];
+
+export const colors = {
+    green(text: string) {
+        return `\x1b[32m${text}\x1b[0m`;
+    },
+    red(text: string) {
+        return `\x1b[31m${text}\x1b[0m`;
+    },
+    yellow(text: string) {
+        return `\x1b[33m${text}\x1b[0m`;
+    },
+    gray(text: string) {
+        return `\x1b[90m${text}\x1b[0m`;
+    }
+} as const;

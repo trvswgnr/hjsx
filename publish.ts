@@ -139,7 +139,9 @@ async function updatePkgVersion(): Promise<[SemVer, SemVer]> {
         console.log("package version is already up to date");
         return [version, newVersion];
     }
-    console.log(`${colors.green("updated version")} ${colors.gray(version)} → ${colors.gray(newVersion)}`);
+    console.log(
+        `${colors.green("updated version")} ${colors.gray(version)} → ${colors.gray(newVersion)}`,
+    );
     return [version, newVersion];
 }
 

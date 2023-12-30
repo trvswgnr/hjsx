@@ -1,5 +1,4 @@
 import {
-    uuid,
     escapeHtml,
     normalizeAttributeName,
     isNullish,
@@ -30,11 +29,11 @@ const SELF_CLOSING_TAGS = [
     "wbr",
 ];
 
-export const hjsx = (
+export function hjsx(
     type: hjsx.Element["type"],
-    props?: hjsx.Element["props"],
+    props?: Record<PropertyKey, unknown>,
     children?: hjsx.Node,
-) => {
+) {
     return {
         type,
         props,
@@ -47,9 +46,11 @@ export const hjsx = (
         ref: null,
         _owner: null,
     };
-};
+}
 
-export const fragment: (props: RenderProps) => hjsx.Node = ({ children }: RenderProps) => children;
+export function fragment({ children }: hjsx.RenderProps) {
+    return children;
+}
 
 // Refactored to use functional programming style
 export const renderToString = (component?: unknown): string => {
@@ -121,3 +122,7 @@ function validateElement(
         throw new Error("Element must have props");
     }
 }
+
+// set globals
+globalThis.hjsx = hjsx;
+globalThis.fragment = fragment;

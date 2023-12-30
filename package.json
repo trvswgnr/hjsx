@@ -4,7 +4,7 @@
     "module": "hjsx.ts",
     "main": "hjsx.js",
     "type": "module",
-    "types": "types.d.ts",
+    "types": "hjsx.d.ts",
     "scripts": {
         "build": "bun build hjsx.ts --outfile hjsx.js --target node",
         "prepare": "bun run build && bun run util/update-version.ts"

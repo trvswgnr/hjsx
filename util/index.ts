@@ -1,17 +1,17 @@
 export { normalizeAttributeName } from "./normalize-attribute-name.ts";
 
 const escapeMap: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
 };
 
-const regex = new RegExp(`[${Object.keys(escapeMap).join('')}]`, 'g');
+const regex = new RegExp(`[${Object.keys(escapeMap).join("")}]`, "g");
 
 export function escapeHtml(str: string) {
-    let html = '';
+    let html = "";
     let matchIndex: number | undefined;
     let lastIndex = 0;
     let char: string;
@@ -24,7 +24,7 @@ export function escapeHtml(str: string) {
         lastIndex = matchIndex + 1;
     }
     html += str.slice(lastIndex);
-    return html
+    return html;
 }
 
 export function uuid(): string {
@@ -47,7 +47,7 @@ function random_alphanumeric(len: number): string {
 }
 
 export function isPrimitive(value: unknown): value is string | number | boolean {
-    return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean';
+    return typeof value === "string" || typeof value === "number" || typeof value === "boolean";
 }
 
 export function isNullish(value: unknown): value is null | undefined {
@@ -55,11 +55,11 @@ export function isNullish(value: unknown): value is null | undefined {
 }
 
 export function isIterable(value: unknown): value is Iterable<any> {
-    return Symbol.iterator in Object(value) && typeof value !== 'string';
+    return Symbol.iterator in Object(value) && typeof value !== "string";
 }
 
 export function isObject(value: unknown): value is Record<PropertyKey, unknown> {
-    return typeof value === 'object' && value !== null;
+    return typeof value === "object" && value !== null;
 }
 
 export function isClassConstructor(fn: unknown): fn is new (...args: any[]) => any {
@@ -80,7 +80,9 @@ export function handleStyle(value: unknown): string {
     if (typeof value !== "object" || value === null) {
         throw new Error("style must be an object");
     }
-    return Object.entries(value).map(([key, value]) => `${toKebabCase(key)}: ${value}`).join("; ");
+    return Object.entries(value)
+        .map(([key, value]) => `${toKebabCase(key)}: ${value}`)
+        .join("; ");
 }
 
 function toKebabCase(str: string) {
@@ -118,5 +120,5 @@ export const colors = {
     },
     gray(text: string) {
         return `\x1b[90m${text}\x1b[0m`;
-    }
+    },
 } as const;

@@ -7,23 +7,36 @@ import {
     dangerouslySetInnerHTML,
     handleStyle,
     isIterable,
+    isClassConstructor,
 } from "./util";
 
 export function h(
-    type: JSX.Element["type"],
-    props?: JSX.Element["props"],
-    children?: JSX.Node,
-): PropsWithChildren<JSX.Element> {
+    type: React.ReactElement["type"],
+    props?: React.ReactElement["props"],
+    children?: React.ReactNode,
+): RenderProps {
     return { type, props, children };
 }
 
-type RenderProps = {
-    type: JSX.Element["type"];
-    props?: JSX.Element["props"];
-    children?: JSX.Node;
-};
-export function renderToString({ type, props, children }: RenderProps): string {
+export function renderToString(component?: React.ReactNode | React.PropsWithChildren<React.ReactNode>): string {
+    if (isPrimitive(component)) {
+        return escapeHtml(String(component));
+    }
+    if (isNullish(component)) {
+        return "";
+    }
+    if (isIterable(component)) {
+        return renderChildren({ children: component });
+    }
+    if (!("children" in component)) {
+        return renderChildren({ children: component });
+    }
+    let { type, props, children } = component;
     if (typeof type === "function") {
+        if (isClassConstructor(type)) {
+            const component = new type({ ...props, children });
+            return renderToString(component);
+        }
         return renderToString(type({ ...props, children }));
     }
     props = props ?? {};
@@ -33,7 +46,6 @@ export function renderToString({ type, props, children }: RenderProps): string {
     let innerHTML: string | null = null;
     let normalizedKey: string;
     let value: unknown;
-    let script = "";
     for (let key in props) {
         value = props[key] as unknown;
         normalizedKey = normalizeAttributeName(key);
@@ -53,7 +65,7 @@ export function renderToString({ type, props, children }: RenderProps): string {
     }
     const propsString = propsArr.length > 0 ? ` ${propsArr.join(" ")}` : "";
 
-    let childrenString = innerHTML ?? renderChildren({ type, props, children });
+    let childrenString = innerHTML ?? renderChildren({ children });
 
     // handle self-closing tags
     const selfClosingTags = [
@@ -80,14 +92,9 @@ export function renderToString({ type, props, children }: RenderProps): string {
     return `<${type}${propsString}>${childrenString}</${type}>`;
 }
 
-export const Fragment = ({ children }: PropsWithChildren<JSX.Element>) =>
-    children;
+export const Fragment = ({ children }: RenderProps) => children;
 
-function renderChildren({
-    type,
-    props,
-    children,
-}: PropsWithChildren<JSX.Element>): string {
+function renderChildren({ children }: { children: React.ReactNode }): string {
     children = Array.isArray(children) ? children : [children];
     let childrenString = "";
     for (let child of children) {
@@ -99,14 +106,10 @@ function renderChildren({
             continue;
         }
         if (isIterable(child)) {
-            childrenString += renderToString({ type, props, children: child });
+            childrenString += renderChildren({ children: child });
             continue;
         }
-        childrenString += renderToString({
-            type: child.type,
-            props: child.props,
-            children: "children" in child ? child.children : undefined,
-        });
+        childrenString += renderToString(child);
     }
     return childrenString;
 }

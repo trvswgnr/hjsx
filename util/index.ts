@@ -54,8 +54,12 @@ export function isNullish(value: unknown): value is null | undefined {
     return value === null || value === undefined;
 }
 
-export function isIterable(value: unknown): value is Iterable<JSX.Node> {
+export function isIterable<T>(value: T): value is T & Iterable<unknown> {
     return Symbol.iterator in Object(value) && typeof value !== 'string';
+}
+
+export function isClassConstructor<T>(fn: T): fn is T & (new (...args: any[]) => any) {
+    return typeof fn === "function" && fn.toString().trim().startsWith("class");
 }
 
 export function dangerouslySetInnerHTML(value: unknown): string {

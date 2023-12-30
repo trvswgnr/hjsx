@@ -7,14 +7,11 @@ JSX is great for templating, but pulling in React can be overkill, and even when
 
 It includes modified types for the JSX elements, with all event handlers removed, and a `render` method that returns a string.
 
-To install dependencies:
-
-```bash
-bun install
-```
+It *is* currently available on [`npm`](https://www.npmjs.com/package/hjsx), but I wouldn't recommend using it yet.
 
 Check out the demo:
 
 ```bash
-bun run serve.ts
+bun install
+bun run examples/serve.ts
 ```

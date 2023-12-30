@@ -54,11 +54,15 @@ export function isNullish(value: unknown): value is null | undefined {
     return value === null || value === undefined;
 }
 
-export function isIterable<T>(value: T): value is T & Iterable<unknown> {
+export function isIterable(value: unknown): value is Iterable<any> {
     return Symbol.iterator in Object(value) && typeof value !== 'string';
 }
 
-export function isClassConstructor<T>(fn: T): fn is T & (new (...args: any[]) => any) {
+export function isObject(value: unknown): value is Record<PropertyKey, unknown> {
+    return typeof value === 'object' && value !== null;
+}
+
+export function isClassConstructor(fn: unknown): fn is new (...args: any[]) => any {
     return typeof fn === "function" && fn.toString().trim().startsWith("class");
 }
 

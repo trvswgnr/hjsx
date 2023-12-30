@@ -17,8 +17,8 @@ const options = {
 const args = process.argv.slice(2);
 const config = { args, options };
 const quietSpawnOptions = {
-    stdout: "ignore",
-    stderr: "ignore",
+    stdout: "pipe",
+    stderr: "pipe",
 } as const;
 
 await build();
@@ -62,7 +62,8 @@ async function commitAndPush(): Promise<void> {
     );
     exitCode = await process.exited;
     if (exitCode !== 0) {
-        throw new Error("git commit failed");
+        const stderr = await Bun.readableStreamToText(process.stderr);
+        throw new Error(`git commit failed: ${stderr}`);
     }
     process = Bun.spawn(["git", "push"], quietSpawnOptions);
     exitCode = await process.exited;

@@ -33,6 +33,7 @@ export const renderToString = (component?: unknown): string => {
     validateElement(component);
 
     let { type, props, children } = component;
+    props = props ?? {};
     if (typeof type === "function") {
         const componentInstance = u.isClassConstructor(type)
             ? new type({ ...props, children })
@@ -40,12 +41,13 @@ export const renderToString = (component?: unknown): string => {
         return renderToString(componentInstance);
     }
 
-    const innerHTML = props.u.dangerouslySetInnerHTML
-        ? u.dangerouslySetInnerHTML(props.u.dangerouslySetInnerHTML)
+    const innerHTML = props.dangerouslySetInnerHTML
+        ? u.dangerouslySetInnerHTML(props.dangerouslySetInnerHTML)
         : null;
     const propsString = Object.entries(props)
         .filter(
-            ([key, value]) => key !== "u.dangerouslySetInnerHTML" && value !== false && value != null,
+            ([key, value]) =>
+                key !== "u.dangerouslySetInnerHTML" && value !== false && value != null,
         )
         .map(([key, value]) => {
             const normalizedKey = u.normalizeAttributeName(key);

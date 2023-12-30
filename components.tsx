@@ -1,6 +1,6 @@
 import { h, Fragment } from "./jsx";
 
-export function Button({ children, ...props }: PropsWithChildren<JSX.HtmlElement<"button">>) {
+export function Button({ children, ...props }: React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>) {
     return (
         <>
             <button {...props}>{children}</button>
@@ -10,8 +10,8 @@ export function Button({ children, ...props }: PropsWithChildren<JSX.HtmlElement
 
 export function Page() {
     return (
-        <main class="hello">
-            <Button class="hi" type="button">Click me</Button>
+        <main className="hello">
+            <Button className="hi" type="button">Click me</Button>
         </main>
     );
 }

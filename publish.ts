@@ -16,17 +16,24 @@ const options = {
 } as const;
 const args = process.argv.slice(2);
 const config = { args, options };
+const quietSpawnOptions = {
+    stdout: "ignore",
+    stderr: "ignore",
+} as const;
 
 await build();
 const [oldVersion, newVersion] = await updateVersion();
 await runTests();
 await commitAndPush();
-await publish();
+if (oldVersion !== newVersion) {
+    await publish();
+}
 
 const green = (text: string) => `\x1b[32m${text}\x1b[0m`;
 console.log(`\n${green("published!")} v${oldVersion} -> v${newVersion}`);
 
 async function build() {
+    console.log("building...");
     const { exited } = Bun.spawn(["bun", "run", "build"]);
     const exitCode = await exited;
     if (exitCode !== 0) {
@@ -35,37 +42,42 @@ async function build() {
 }
 
 async function publish() {
-    const { exited } = Bun.spawn(["npm", "publish"]);
+    console.log("publishing to npm...");
+    const { exited } = Bun.spawn(["npm", "publish"], quietSpawnOptions);
     const exitCode = await exited;
     if (exitCode !== 0) {
         throw new Error("publish failed");
     }
 }
 
-async function commitAndPush() {
-    let exited = Bun.spawn(["git", "add", "-A"]).exited;
-    let exitCode = await exited;
+async function commitAndPush(): Promise<void> {
+    let process = Bun.spawn(["git", "add", "-A"], quietSpawnOptions);
+    let exitCode = await process.exited;
     if (exitCode !== 0) {
         throw new Error("git add failed");
     }
-    exited = Bun.spawn(["git", "commit", "-m", "'update version and test results badge'"]).exited;
-    exitCode = await exited;
+    process = Bun.spawn(
+        ["git", "commit", "-m", "'update version and test results badge'"],
+        quietSpawnOptions,
+    );
+    exitCode = await process.exited;
     if (exitCode !== 0) {
         throw new Error("git commit failed");
     }
-    exited = Bun.spawn(["git", "push"]).exited;
-    exitCode = await exited;
+    process = Bun.spawn(["git", "push"], quietSpawnOptions);
+    exitCode = await process.exited;
     if (exitCode !== 0) {
         throw new Error("git push failed");
     }
 }
 
 async function updateVersion(): Promise<[SemVer, SemVer]> {
+    console.log("updating version...");
     const parsed = parseArgs(config);
     const file = Bun.file("package.json");
     const pkg = await file.json<Package>();
     const version = pkg.version;
-    const newVersion = getNewVersion(version, parsed);
+    const newVersion = getNewVersion(version, parsed.values);
     pkg.version = newVersion;
     const writer = file.writer();
     writer.write(JSON.stringify(pkg, null, 4));
@@ -73,19 +85,25 @@ async function updateVersion(): Promise<[SemVer, SemVer]> {
     return [version, newVersion];
 }
 
-function getNewVersion(version: SemVer, parsedArgs: ParsedArgs): SemVer {
-    const { values } = parsedArgs;
+function getNewVersion(version: SemVer, args: ParsedArgs["values"]): SemVer {
     const [major, minor, patch] = version.split(".").map(Number);
-    if (values.major) return `${major + 1}.0.0`;
-    if (values.minor) return `${major}.${minor + 1}.0`;
-    return `${major}.${minor}.${patch + 1}` as SemVer;
+    if (args.major) return `${major + 1}.0.0`;
+    if (args.minor) return `${major}.${minor + 1}.0`;
+    if (args.patch) return `${major}.${minor}.${patch + 1}`;
+    return version;
 }
 
 async function runTests() {
-    const { exited } = Bun.spawn("bun test".split(" "));
+    console.log("running tests...");
+    const { exited } = Bun.spawn("bun test".split(" "), quietSpawnOptions);
     const exitCode = await exited;
     const text = exitCode === 0 ? "passing" : "failing";
     const color = exitCode === 0 ? "green" : "red";
+    return updateReadmeTestsBadge(text, color);
+}
+
+async function updateReadmeTestsBadge(text: string, color: string) {
+    console.log("updating README.md tests badge...");
     const link = `![tests](https://img.shields.io/badge/tests-${text}-${color}?style=for-the-badge)`;
     const file = Bun.file("README.md");
     const contents = await file.text();

@@ -32,19 +32,23 @@ const quietSpawnOptions = {
 
 await build();
 const [oldVersion, newVersion] = await updateVersion();
-const sameVersion = oldVersion === newVersion;
 const testsPassed = await runTests();
-const updatedReadme = await updateReadmeTestsBadge(testsPassed);
-if (updatedReadme || !sameVersion) {
-    await commitAndPush();
-}
+const readmeUpdated = await updateReadmeTestsBadge(testsPassed);
+const changedFiles = await getChangedFiles();
+await commitAndPush(changedFiles);
+await publish(oldVersion, newVersion);
 
-let message = `\n${colors.gray("(not published)")} v${oldVersion} == v${newVersion}`;
-if (!sameVersion) {
-    await publish();
-    message = `\n${colors.green("published!")} v${oldVersion} -> v${newVersion}`;
+async function getChangedFiles(): Promise<string[]> {
+    console.log("getting changed files...");
+    const process = Bun.spawn(["git", "diff", "--name-only"], quietSpawnOptions);
+    const stdout = await Bun.readableStreamToText(process.stdout);
+    const changed = stdout.split("\n").filter(Boolean);
+    if (changed.length) {
+        console.log("changed files:");
+        changed.forEach((file) => console.log(`  ${file}`));
+    }
+    return changed;
 }
-console.log(message);
 
 async function build() {
     console.log("building...");
@@ -55,7 +59,11 @@ async function build() {
     }
 }
 
-async function publish() {
+async function publish(oldVersion: SemVer, newVersion: SemVer) {
+    if (oldVersion === newVersion) {
+        console.log(`not publishing to npm because version is still ${newVersion}`);
+        return;
+    }
     console.log("publishing to npm...");
     const process = Bun.spawn(["npm", "publish"], quietSpawnOptions);
     const exitCode = await process.exited;
@@ -63,18 +71,27 @@ async function publish() {
         const stderr = await Bun.readableStreamToText(process.stderr);
         throw new Error(`npm publish failed: ${stderr}`);
     }
+    console.log(
+        `${colors.green("published to npm!")} 🎉 ${colors.gray(oldVersion)} → ${colors.gray(
+            newVersion,
+        )}`,
+    );
 }
 
-async function commitAndPush(): Promise<void> {
+async function commitAndPush(changedFiles: string[]): Promise<void> {
+    if (!changedFiles.length) {
+        console.log("no changes to commit");
+        return;
+    }
     console.log("committing and pushing...");
-    let process = Bun.spawn(["git", "add", "-A"], quietSpawnOptions);
+    let process = Bun.spawn(["git", "add", "."], quietSpawnOptions);
     let exitCode = await process.exited;
     if (exitCode !== 0) {
         const stderr = await Bun.readableStreamToText(process.stderr);
         throw new Error(`git add failed: ${stderr}`);
     }
     process = Bun.spawn(
-        ["git", "commit", "-m", "'update version and test results badge'"],
+        ["git", "commit", "-m", "'updated, tested'"],
         quietSpawnOptions,
     );
     exitCode = await process.exited;
@@ -88,6 +105,7 @@ async function commitAndPush(): Promise<void> {
         const stderr = await Bun.readableStreamToText(process.stderr);
         throw new Error(`git push failed: ${stderr}`);
     }
+    console.log("committed and pushed to github");
 }
 
 async function updateVersion(): Promise<[SemVer, SemVer]> {
@@ -116,7 +134,10 @@ async function runTests(): Promise<boolean> {
     console.log("running tests...");
     const process = Bun.spawn("bun test".split(" "), quietSpawnOptions);
     const exitCode = await process.exited;
-    return exitCode === 0;
+    const passed = exitCode === 0;
+    let message = passed ? colors.green("tests passed!") : colors.red("tests failed!");
+    console.log(message);
+    return passed;
 }
 
 async function updateReadmeTestsBadge(testsPassed: boolean): Promise<boolean> {

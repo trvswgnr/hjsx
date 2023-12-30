@@ -38,7 +38,7 @@ await main();
  * bun publish.ts -M
  *```
  *
- * no version change:
+ * no version change (still runs tests and pushes to github):
  * ```sh
  * bun publish.ts # no args
  * ```

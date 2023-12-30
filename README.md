@@ -1,5 +1,8 @@
 # hjsx
 
+![npm](https://img.shields.io/npm/v/hjsx?style=flat-square)
+![tests](https://img.shields.io/badge/tests-passing-green?style=for-the-badge)
+
 > [!WARNING]  
 > This project is still in early development and is not ready for use.
 
@@ -15,3 +18,7 @@ Check out the demo:
 bun install
 bun run examples/serve.ts
 ```
+
+## Contributing
+
+Contributions are welcome! Please help me. This is a cry for help.

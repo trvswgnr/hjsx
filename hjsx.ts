@@ -98,4 +98,3 @@ function validateElement(
 
 // set globals
 globalThis.hjsx = Object.assign(hjsx, { fragment });
-

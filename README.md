@@ -1,6 +1,6 @@
 # hjsx
 
-![npm](https://img.shields.io/npm/v/hjsx?style=flat-square)
+![npm](https://img.shields.io/npm/v/hjsx?style=for-the-badge)
 ![tests](https://img.shields.io/badge/tests-passing-green?style=for-the-badge)
 
 > [!WARNING]  

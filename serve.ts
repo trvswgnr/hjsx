@@ -1,5 +1,5 @@
 import { Page } from "./components";
-import { renderToString } from "./jsx";
+import { renderToString } from "./sjsx";
 Bun.serve({
     port: 3000,
     async fetch(req) {

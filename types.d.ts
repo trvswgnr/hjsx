@@ -1,11 +1,10 @@
-declare namespace React {
-    type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
+declare namespace sjsx {
+    type PropsWithChildren<P = unknown> = P & { children?: Node | undefined };
     interface SVGLineElementAttributes<T> extends SVGProps<T> {}
     interface SVGTextElementAttributes<T> extends SVGProps<T> {}
     interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {}
     type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined;
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
-        // Standard HTML Attributes
         accept?: string | undefined;
         acceptCharset?: string | undefined;
         action?: string | undefined;
@@ -109,7 +108,6 @@ declare namespace React {
         wmode?: string | undefined;
         wrap?: string | undefined;
     }
-
     type HTMLAttributeReferrerPolicy =
         | ""
         | "no-referrer"
@@ -120,9 +118,7 @@ declare namespace React {
         | "strict-origin"
         | "strict-origin-when-cross-origin"
         | "unsafe-url";
-
     type HTMLAttributeAnchorTarget = "_self" | "_blank" | "_parent" | "_top" | (string & {});
-
     interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
         download?: any;
         href?: string | undefined;
@@ -133,9 +129,7 @@ declare namespace React {
         type?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
     }
-
     interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
-
     interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
         coords?: string | undefined;
@@ -147,16 +141,13 @@ declare namespace React {
         shape?: string | undefined;
         target?: string | undefined;
     }
-
     interface BaseHTMLAttributes<T> extends HTMLAttributes<T> {
         href?: string | undefined;
         target?: string | undefined;
     }
-
     interface BlockquoteHTMLAttributes<T> extends HTMLAttributes<T> {
         cite?: string | undefined;
     }
-
     interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
         disabled?: boolean | undefined;
         form?: string | undefined;
@@ -169,52 +160,42 @@ declare namespace React {
         type?: "submit" | "reset" | "button" | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-
     interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
         height?: number | string | undefined;
         width?: number | string | undefined;
     }
-
     interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number | undefined;
         width?: number | string | undefined;
     }
-
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number | undefined;
     }
-
     interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
         value?: string | readonly string[] | number | undefined;
     }
-
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
         name?: string | undefined;
     }
-
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
         cite?: string | undefined;
         dateTime?: string | undefined;
     }
-
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
     }
-
     interface EmbedHTMLAttributes<T> extends HTMLAttributes<T> {
         height?: number | string | undefined;
         src?: string | undefined;
         type?: string | undefined;
         width?: number | string | undefined;
     }
-
     interface FieldsetHTMLAttributes<T> extends HTMLAttributes<T> {
         disabled?: boolean | undefined;
         form?: string | undefined;
         name?: string | undefined;
     }
-
     interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
         acceptCharset?: string | undefined;
         action?: string | undefined;
@@ -225,34 +206,27 @@ declare namespace React {
         noValidate?: boolean | undefined;
         target?: string | undefined;
     }
-
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
         manifest?: string | undefined;
     }
-
     interface IframeHTMLAttributes<T> extends HTMLAttributes<T> {
         allow?: string | undefined;
         allowFullScreen?: boolean | undefined;
         allowTransparency?: boolean | undefined;
-        /** @deprecated */
         frameBorder?: number | string | undefined;
         height?: number | string | undefined;
         loading?: "eager" | "lazy" | undefined;
-        /** @deprecated */
         marginHeight?: number | undefined;
-        /** @deprecated */
         marginWidth?: number | undefined;
         name?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         sandbox?: string | undefined;
-        /** @deprecated */
         scrolling?: string | undefined;
         seamless?: boolean | undefined;
         src?: string | undefined;
         srcDoc?: string | undefined;
         width?: number | string | undefined;
     }
-
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
@@ -266,12 +240,10 @@ declare namespace React {
         useMap?: string | undefined;
         width?: number | string | undefined;
     }
-
     interface InsHTMLAttributes<T> extends HTMLAttributes<T> {
         cite?: string | undefined;
         dateTime?: string | undefined;
     }
-
     type HTMLInputTypeAttribute =
         | "button"
         | "checkbox"
@@ -296,12 +268,11 @@ declare namespace React {
         | "url"
         | "week"
         | (string & {});
-
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string | undefined;
         alt?: string | undefined;
         autoComplete?: string | undefined;
-        capture?: boolean | "user" | "environment" | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | "user" | "environment" | undefined; 
         checked?: boolean | undefined;
         disabled?: boolean | undefined;
         enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
@@ -330,7 +301,6 @@ declare namespace React {
         value?: string | readonly string[] | number | undefined;
         width?: number | string | undefined;
     }
-
     interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
         challenge?: string | undefined;
         disabled?: boolean | undefined;
@@ -339,16 +309,13 @@ declare namespace React {
         keyParams?: string | undefined;
         name?: string | undefined;
     }
-
     interface LabelHTMLAttributes<T> extends HTMLAttributes<T> {
         form?: string | undefined;
         htmlFor?: string | undefined;
     }
-
     interface LiHTMLAttributes<T> extends HTMLAttributes<T> {
         value?: string | readonly string[] | number | undefined;
     }
-
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
         crossOrigin?: CrossOrigin;
@@ -364,15 +331,12 @@ declare namespace React {
         type?: string | undefined;
         charSet?: string | undefined;
     }
-
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
         name?: string | undefined;
     }
-
     interface MenuHTMLAttributes<T> extends HTMLAttributes<T> {
         type?: string | undefined;
     }
-
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
@@ -385,7 +349,6 @@ declare namespace React {
         preload?: string | undefined;
         src?: string | undefined;
     }
-
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
         httpEquiv?: string | undefined;
@@ -393,7 +356,6 @@ declare namespace React {
         media?: string | undefined;
         content?: string | undefined;
     }
-
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
         form?: string | undefined;
         high?: number | undefined;
@@ -403,11 +365,9 @@ declare namespace React {
         optimum?: number | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-
     interface QuoteHTMLAttributes<T> extends HTMLAttributes<T> {
         cite?: string | undefined;
     }
-
     interface ObjectHTMLAttributes<T> extends HTMLAttributes<T> {
         classID?: string | undefined;
         data?: string | undefined;
@@ -419,48 +379,39 @@ declare namespace React {
         width?: number | string | undefined;
         wmode?: string | undefined;
     }
-
     interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
         reversed?: boolean | undefined;
         start?: number | undefined;
         type?: "1" | "a" | "A" | "i" | "I" | undefined;
     }
-
     interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
         disabled?: boolean | undefined;
         label?: string | undefined;
     }
-
     interface OptionHTMLAttributes<T> extends HTMLAttributes<T> {
         disabled?: boolean | undefined;
         label?: string | undefined;
         selected?: boolean | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-
     interface OutputHTMLAttributes<T> extends HTMLAttributes<T> {
         form?: string | undefined;
         htmlFor?: string | undefined;
         name?: string | undefined;
     }
-
     interface ParamHTMLAttributes<T> extends HTMLAttributes<T> {
         name?: string | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-
     interface ProgressHTMLAttributes<T> extends HTMLAttributes<T> {
         max?: number | string | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-
     interface SlotHTMLAttributes<T> extends HTMLAttributes<T> {
         name?: string | undefined;
     }
-
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean | undefined;
-        /** @deprecated */
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
         defer?: boolean | undefined;
@@ -470,7 +421,6 @@ declare namespace React {
         src?: string | undefined;
         type?: string | undefined;
     }
-
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
         autoComplete?: string | undefined;
         disabled?: boolean | undefined;
@@ -481,7 +431,6 @@ declare namespace React {
         size?: number | undefined;
         value?: string | readonly string[] | number | undefined;
     }
-
     interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
         height?: number | string | undefined;
         media?: string | undefined;
@@ -491,13 +440,11 @@ declare namespace React {
         type?: string | undefined;
         width?: number | string | undefined;
     }
-
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
     }
-
     interface TableHTMLAttributes<T> extends HTMLAttributes<T> {
         align?: "left" | "center" | "right" | undefined;
         bgcolor?: string | undefined;
@@ -509,7 +456,6 @@ declare namespace React {
         summary?: string | undefined;
         width?: number | string | undefined;
     }
-
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoComplete?: string | undefined;
         cols?: number | undefined;
@@ -526,7 +472,6 @@ declare namespace React {
         value?: string | readonly string[] | number | undefined;
         wrap?: string | undefined;
     }
-
     interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
         align?: "left" | "center" | "right" | "justify" | "char" | undefined;
         colSpan?: number | undefined;
@@ -538,7 +483,6 @@ declare namespace React {
         width?: number | string | undefined;
         valign?: "top" | "middle" | "bottom" | "baseline" | undefined;
     }
-
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
         align?: "left" | "center" | "right" | "justify" | "char" | undefined;
         colSpan?: number | undefined;
@@ -547,11 +491,9 @@ declare namespace React {
         scope?: string | undefined;
         abbr?: string | undefined;
     }
-
     interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
         dateTime?: string | undefined;
     }
-
     interface TrackHTMLAttributes<T> extends HTMLAttributes<T> {
         default?: boolean | undefined;
         kind?: string | undefined;
@@ -559,7 +501,6 @@ declare namespace React {
         src?: string | undefined;
         srcLang?: string | undefined;
     }
-
     interface VideoHTMLAttributes<T> extends MediaHTMLAttributes<T> {
         height?: number | string | undefined;
         playsInline?: boolean | undefined;
@@ -568,21 +509,8 @@ declare namespace React {
         disablePictureInPicture?: boolean | undefined;
         disableRemotePlayback?: boolean | undefined;
     }
-
-    // this list is "complete" in that it contains every SVG attribute
-    // that React supports, but the types can be improved.
-    // Full list here: https://facebook.github.io/react/docs/dom-elements.html
-    //
-    // The three broad type categories are (in order of restrictiveness):
-    //   - "number | string"
-    //   - "string"
-    //   - union of string literals
     interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-        // React-specific Attributes
         suppressHydrationWarning?: boolean | undefined;
-
-        // Attributes which also defined in HTMLAttributes
-        // See comment in SVGDOMPropertyConfig.js
         className?: string | undefined;
         color?: string | undefined;
         height?: number | string | undefined;
@@ -597,13 +525,9 @@ declare namespace React {
         target?: string | undefined;
         type?: string | undefined;
         width?: number | string | undefined;
-
-        // Other HTML properties supported by SVG elements in browsers
         role?: AriaRole | undefined;
         tabIndex?: number | undefined;
         crossOrigin?: CrossOrigin;
-
-        // SVG Specific attributes
         accentHeight?: number | string | undefined;
         accumulate?: "none" | "sum" | undefined;
         additive?: "replace" | "sum" | undefined;
@@ -861,7 +785,6 @@ declare namespace React {
         z?: number | string | undefined;
         zoomAndPan?: string | undefined;
     }
-
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
         allowpopups?: boolean | undefined;
@@ -880,7 +803,6 @@ declare namespace React {
         useragent?: string | undefined;
         webpreferences?: string | undefined;
     }
-
     interface AriaAttributes {
         "aria-activedescendant"?: string | undefined;
         "aria-atomic"?: Booleanish | undefined;
@@ -1072,18 +994,18 @@ declare namespace React {
     export interface CSSProperties extends CSS.Properties<(string & {}) | number> {}
     interface TrustedHTML {}
     interface DOMAttributes<T> {
-        children?: ReactNode | undefined;
+        children?: sjsx.Node | undefined;
         dangerouslySetInnerHTML?:
             | {
                   __html: string | TrustedHTML;
               }
             | undefined;
     }
-    type ReactNode = ReactElement | string | number | Iterable<ReactNode> | ReactPortal | boolean | null | undefined;
-    interface ReactPortal extends ReactElement {
-        children: ReactNode;
+    type Node = Element | string | number | Iterable<Node> | Portal | boolean | null | undefined;
+    interface Portal extends Element {
+        children: Node;
     }
-    interface ReactElement<
+    interface Element<
         P = any,
         T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>,
     > {
@@ -1092,7 +1014,7 @@ declare namespace React {
         key: string | null;
     }
     type JSXElementConstructor<P> =
-        | ((props: P, deprecatedLegacyContext?: any) => ReactNode)
+        | ((props: P, deprecatedLegacyContext?: any) => Node)
         | (new (props: P, deprecatedLegacyContext?: any) => Component<any, any>);
     interface Component<P = {}, S = {}, SS = any> {
         [x: string]: any;
@@ -1114,7 +1036,6 @@ declare namespace React {
     }["bivarianceHack"];
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
 }
-
 declare namespace CSS {
     export interface Properties<TLength = (string & {}) | 0, TTime = string & {}> {
         [key: string]: string | number | TLength | TTime | null | undefined;
@@ -1123,190 +1044,187 @@ declare namespace CSS {
 
 declare namespace JSX {
     interface IntrinsicElements {
-        a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-        abbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        address: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        area: React.DetailedHTMLProps<React.AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
-        article: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        aside: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        audio: React.DetailedHTMLProps<React.AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
-        b: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        base: React.DetailedHTMLProps<React.BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
-        bdi: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        bdo: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        big: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        blockquote: React.DetailedHTMLProps<React.BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-        body: React.DetailedHTMLProps<React.HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
-        br: React.DetailedHTMLProps<React.HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
-        button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-        canvas: React.DetailedHTMLProps<React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
-        caption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        center: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        cite: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        colgroup: React.DetailedHTMLProps<React.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        data: React.DetailedHTMLProps<React.DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
-        datalist: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
-        dd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLModElement>, HTMLModElement>;
-        details: React.DetailedHTMLProps<React.DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>;
-        dfn: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        dialog: React.DetailedHTMLProps<React.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
-        div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-        dl: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
-        dt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        em: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        embed: React.DetailedHTMLProps<React.EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
-        fieldset: React.DetailedHTMLProps<React.FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
-        figcaption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        figure: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        footer: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        form: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
-        h1: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h2: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h3: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h4: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h5: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h6: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        head: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadElement>, HTMLHeadElement>;
-        header: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        hgroup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        hr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
-        html: React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
-        i: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        iframe: React.DetailedHTMLProps<React.IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
-        img: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
-        input: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-        ins: React.DetailedHTMLProps<React.InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
-        kbd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        keygen: React.DetailedHTMLProps<React.KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
-        label: React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
-        legend: React.DetailedHTMLProps<React.HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
-        li: React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
-        link: React.DetailedHTMLProps<React.LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
-        main: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        map: React.DetailedHTMLProps<React.MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
-        mark: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        menu: React.DetailedHTMLProps<React.MenuHTMLAttributes<HTMLElement>, HTMLElement>;
-        menuitem: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        meta: React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
-        meter: React.DetailedHTMLProps<React.MeterHTMLAttributes<HTMLMeterElement>, HTMLMeterElement>;
-        nav: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        noindex: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        noscript: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        object: React.DetailedHTMLProps<React.ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
-        ol: React.DetailedHTMLProps<React.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
-        optgroup: React.DetailedHTMLProps<React.OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
-        option: React.DetailedHTMLProps<React.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
-        output: React.DetailedHTMLProps<React.OutputHTMLAttributes<HTMLOutputElement>, HTMLOutputElement>;
-        p: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
-        param: React.DetailedHTMLProps<React.ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
-        picture: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        pre: React.DetailedHTMLProps<React.HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
-        progress: React.DetailedHTMLProps<React.ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
-        q: React.DetailedHTMLProps<React.QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-        rp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        rt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        search: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        slot: React.DetailedHTMLProps<React.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
-        script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
-        section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        select: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
-        small: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        source: React.DetailedHTMLProps<React.SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
-        span: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
-        strong: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        style: React.DetailedHTMLProps<React.StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
-        sub: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        summary: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        sup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        table: React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
-        template: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
-        tbody: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        td: React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
-        textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
-        tfoot: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        th: React.DetailedHTMLProps<React.ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
-        thead: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        time: React.DetailedHTMLProps<React.TimeHTMLAttributes<HTMLTimeElement>, HTMLTimeElement>;
-        title: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
-        tr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
-        track: React.DetailedHTMLProps<React.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
-        u: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        ul: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-        var: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
-        wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-        webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
-        svg: React.SVGProps<SVGSVGElement>;
-        animate: React.SVGProps<SVGElement>;
-        animateMotion: React.SVGProps<SVGElement>;
-        animateTransform: React.SVGProps<SVGElement>;
-        circle: React.SVGProps<SVGCircleElement>;
-        clipPath: React.SVGProps<SVGClipPathElement>;
-        defs: React.SVGProps<SVGDefsElement>;
-        desc: React.SVGProps<SVGDescElement>;
-        ellipse: React.SVGProps<SVGEllipseElement>;
-        feBlend: React.SVGProps<SVGFEBlendElement>;
-        feColorMatrix: React.SVGProps<SVGFEColorMatrixElement>;
-        feComponentTransfer: React.SVGProps<SVGFEComponentTransferElement>;
-        feComposite: React.SVGProps<SVGFECompositeElement>;
-        feConvolveMatrix: React.SVGProps<SVGFEConvolveMatrixElement>;
-        feDiffuseLighting: React.SVGProps<SVGFEDiffuseLightingElement>;
-        feDisplacementMap: React.SVGProps<SVGFEDisplacementMapElement>;
-        feDistantLight: React.SVGProps<SVGFEDistantLightElement>;
-        feDropShadow: React.SVGProps<SVGFEDropShadowElement>;
-        feFlood: React.SVGProps<SVGFEFloodElement>;
-        feFuncA: React.SVGProps<SVGFEFuncAElement>;
-        feFuncB: React.SVGProps<SVGFEFuncBElement>;
-        feFuncG: React.SVGProps<SVGFEFuncGElement>;
-        feFuncR: React.SVGProps<SVGFEFuncRElement>;
-        feGaussianBlur: React.SVGProps<SVGFEGaussianBlurElement>;
-        feImage: React.SVGProps<SVGFEImageElement>;
-        feMerge: React.SVGProps<SVGFEMergeElement>;
-        feMergeNode: React.SVGProps<SVGFEMergeNodeElement>;
-        feMorphology: React.SVGProps<SVGFEMorphologyElement>;
-        feOffset: React.SVGProps<SVGFEOffsetElement>;
-        fePointLight: React.SVGProps<SVGFEPointLightElement>;
-        feSpecularLighting: React.SVGProps<SVGFESpecularLightingElement>;
-        feSpotLight: React.SVGProps<SVGFESpotLightElement>;
-        feTile: React.SVGProps<SVGFETileElement>;
-        feTurbulence: React.SVGProps<SVGFETurbulenceElement>;
-        filter: React.SVGProps<SVGFilterElement>;
-        foreignObject: React.SVGProps<SVGForeignObjectElement>;
-        g: React.SVGProps<SVGGElement>;
-        image: React.SVGProps<SVGImageElement>;
-        line: React.SVGLineElementAttributes<SVGLineElement>;
-        linearGradient: React.SVGProps<SVGLinearGradientElement>;
-        marker: React.SVGProps<SVGMarkerElement>;
-        mask: React.SVGProps<SVGMaskElement>;
-        metadata: React.SVGProps<SVGMetadataElement>;
-        mpath: React.SVGProps<SVGElement>;
-        path: React.SVGProps<SVGPathElement>;
-        pattern: React.SVGProps<SVGPatternElement>;
-        polygon: React.SVGProps<SVGPolygonElement>;
-        polyline: React.SVGProps<SVGPolylineElement>;
-        radialGradient: React.SVGProps<SVGRadialGradientElement>;
-        rect: React.SVGProps<SVGRectElement>;
-        stop: React.SVGProps<SVGStopElement>;
-        switch: React.SVGProps<SVGSwitchElement>;
-        symbol: React.SVGProps<SVGSymbolElement>;
-        text: React.SVGTextElementAttributes<SVGTextElement>;
-        textPath: React.SVGProps<SVGTextPathElement>;
-        tspan: React.SVGProps<SVGTSpanElement>;
-        use: React.SVGProps<SVGUseElement>;
-        view: React.SVGProps<SVGViewElement>;
+        a: sjsx.DetailedHTMLProps<sjsx.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+        abbr: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        address: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        area: sjsx.DetailedHTMLProps<sjsx.AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
+        article: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        aside: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        audio: sjsx.DetailedHTMLProps<sjsx.AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
+        b: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        base: sjsx.DetailedHTMLProps<sjsx.BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
+        bdi: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        bdo: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        big: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        blockquote: sjsx.DetailedHTMLProps<sjsx.BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
+        body: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
+        br: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
+        button: sjsx.DetailedHTMLProps<sjsx.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+        canvas: sjsx.DetailedHTMLProps<sjsx.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
+        caption: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        center: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        cite: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        code: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        col: sjsx.DetailedHTMLProps<sjsx.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+        colgroup: sjsx.DetailedHTMLProps<sjsx.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+        data: sjsx.DetailedHTMLProps<sjsx.DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
+        datalist: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
+        dd: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        del: sjsx.DetailedHTMLProps<sjsx.DelHTMLAttributes<HTMLModElement>, HTMLModElement>;
+        details: sjsx.DetailedHTMLProps<sjsx.DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>;
+        dfn: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        dialog: sjsx.DetailedHTMLProps<sjsx.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
+        div: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+        dl: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
+        dt: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        em: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        embed: sjsx.DetailedHTMLProps<sjsx.EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
+        fieldset: sjsx.DetailedHTMLProps<sjsx.FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
+        figcaption: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        figure: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        footer: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        form: sjsx.DetailedHTMLProps<sjsx.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
+        h1: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h2: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h3: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h4: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h5: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h6: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        head: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHeadElement>, HTMLHeadElement>;
+        header: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        hgroup: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        hr: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
+        html: sjsx.DetailedHTMLProps<sjsx.HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
+        i: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        iframe: sjsx.DetailedHTMLProps<sjsx.IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
+        img: sjsx.DetailedHTMLProps<sjsx.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+        input: sjsx.DetailedHTMLProps<sjsx.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+        ins: sjsx.DetailedHTMLProps<sjsx.InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
+        kbd: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        keygen: sjsx.DetailedHTMLProps<sjsx.KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
+        label: sjsx.DetailedHTMLProps<sjsx.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+        legend: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
+        li: sjsx.DetailedHTMLProps<sjsx.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
+        link: sjsx.DetailedHTMLProps<sjsx.LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
+        main: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        map: sjsx.DetailedHTMLProps<sjsx.MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
+        mark: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        menu: sjsx.DetailedHTMLProps<sjsx.MenuHTMLAttributes<HTMLElement>, HTMLElement>;
+        menuitem: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        meta: sjsx.DetailedHTMLProps<sjsx.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
+        meter: sjsx.DetailedHTMLProps<sjsx.MeterHTMLAttributes<HTMLMeterElement>, HTMLMeterElement>;
+        nav: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        noindex: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        noscript: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        object: sjsx.DetailedHTMLProps<sjsx.ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
+        ol: sjsx.DetailedHTMLProps<sjsx.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
+        optgroup: sjsx.DetailedHTMLProps<sjsx.OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
+        option: sjsx.DetailedHTMLProps<sjsx.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
+        output: sjsx.DetailedHTMLProps<sjsx.OutputHTMLAttributes<HTMLOutputElement>, HTMLOutputElement>;
+        p: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
+        param: sjsx.DetailedHTMLProps<sjsx.ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
+        picture: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        pre: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
+        progress: sjsx.DetailedHTMLProps<sjsx.ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
+        q: sjsx.DetailedHTMLProps<sjsx.QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
+        rp: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        rt: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        ruby: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        s: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        samp: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        search: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        slot: sjsx.DetailedHTMLProps<sjsx.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
+        script: sjsx.DetailedHTMLProps<sjsx.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
+        section: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        select: sjsx.DetailedHTMLProps<sjsx.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
+        small: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        source: sjsx.DetailedHTMLProps<sjsx.SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
+        span: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
+        strong: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        style: sjsx.DetailedHTMLProps<sjsx.StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
+        sub: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        summary: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        sup: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        table: sjsx.DetailedHTMLProps<sjsx.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+        template: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
+        tbody: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        td: sjsx.DetailedHTMLProps<sjsx.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
+        textarea: sjsx.DetailedHTMLProps<sjsx.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+        tfoot: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        th: sjsx.DetailedHTMLProps<sjsx.ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
+        thead: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        time: sjsx.DetailedHTMLProps<sjsx.TimeHTMLAttributes<HTMLTimeElement>, HTMLTimeElement>;
+        title: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
+        tr: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
+        track: sjsx.DetailedHTMLProps<sjsx.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
+        u: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        ul: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+        var: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        video: sjsx.DetailedHTMLProps<sjsx.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
+        wbr: sjsx.DetailedHTMLProps<sjsx.HTMLAttributes<HTMLElement>, HTMLElement>;
+        webview: sjsx.DetailedHTMLProps<sjsx.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
+        svg: sjsx.SVGProps<SVGSVGElement>;
+        animate: sjsx.SVGProps<SVGElement>;
+        animateMotion: sjsx.SVGProps<SVGElement>;
+        animateTransform: sjsx.SVGProps<SVGElement>;
+        circle: sjsx.SVGProps<SVGCircleElement>;
+        clipPath: sjsx.SVGProps<SVGClipPathElement>;
+        defs: sjsx.SVGProps<SVGDefsElement>;
+        desc: sjsx.SVGProps<SVGDescElement>;
+        ellipse: sjsx.SVGProps<SVGEllipseElement>;
+        feBlend: sjsx.SVGProps<SVGFEBlendElement>;
+        feColorMatrix: sjsx.SVGProps<SVGFEColorMatrixElement>;
+        feComponentTransfer: sjsx.SVGProps<SVGFEComponentTransferElement>;
+        feComposite: sjsx.SVGProps<SVGFECompositeElement>;
+        feConvolveMatrix: sjsx.SVGProps<SVGFEConvolveMatrixElement>;
+        feDiffuseLighting: sjsx.SVGProps<SVGFEDiffuseLightingElement>;
+        feDisplacementMap: sjsx.SVGProps<SVGFEDisplacementMapElement>;
+        feDistantLight: sjsx.SVGProps<SVGFEDistantLightElement>;
+        feDropShadow: sjsx.SVGProps<SVGFEDropShadowElement>;
+        feFlood: sjsx.SVGProps<SVGFEFloodElement>;
+        feFuncA: sjsx.SVGProps<SVGFEFuncAElement>;
+        feFuncB: sjsx.SVGProps<SVGFEFuncBElement>;
+        feFuncG: sjsx.SVGProps<SVGFEFuncGElement>;
+        feFuncR: sjsx.SVGProps<SVGFEFuncRElement>;
+        feGaussianBlur: sjsx.SVGProps<SVGFEGaussianBlurElement>;
+        feImage: sjsx.SVGProps<SVGFEImageElement>;
+        feMerge: sjsx.SVGProps<SVGFEMergeElement>;
+        feMergeNode: sjsx.SVGProps<SVGFEMergeNodeElement>;
+        feMorphology: sjsx.SVGProps<SVGFEMorphologyElement>;
+        feOffset: sjsx.SVGProps<SVGFEOffsetElement>;
+        fePointLight: sjsx.SVGProps<SVGFEPointLightElement>;
+        feSpecularLighting: sjsx.SVGProps<SVGFESpecularLightingElement>;
+        feSpotLight: sjsx.SVGProps<SVGFESpotLightElement>;
+        feTile: sjsx.SVGProps<SVGFETileElement>;
+        feTurbulence: sjsx.SVGProps<SVGFETurbulenceElement>;
+        filter: sjsx.SVGProps<SVGFilterElement>;
+        foreignObject: sjsx.SVGProps<SVGForeignObjectElement>;
+        g: sjsx.SVGProps<SVGGElement>;
+        image: sjsx.SVGProps<SVGImageElement>;
+        line: sjsx.SVGLineElementAttributes<SVGLineElement>;
+        linearGradient: sjsx.SVGProps<SVGLinearGradientElement>;
+        marker: sjsx.SVGProps<SVGMarkerElement>;
+        mask: sjsx.SVGProps<SVGMaskElement>;
+        metadata: sjsx.SVGProps<SVGMetadataElement>;
+        mpath: sjsx.SVGProps<SVGElement>;
+        path: sjsx.SVGProps<SVGPathElement>;
+        pattern: sjsx.SVGProps<SVGPatternElement>;
+        polygon: sjsx.SVGProps<SVGPolygonElement>;
+        polyline: sjsx.SVGProps<SVGPolylineElement>;
+        radialGradient: sjsx.SVGProps<SVGRadialGradientElement>;
+        rect: sjsx.SVGProps<SVGRectElement>;
+        stop: sjsx.SVGProps<SVGStopElement>;
+        switch: sjsx.SVGProps<SVGSwitchElement>;
+        symbol: sjsx.SVGProps<SVGSymbolElement>;
+        text: sjsx.SVGTextElementAttributes<SVGTextElement>;
+        textPath: sjsx.SVGProps<SVGTextPathElement>;
+        tspan: sjsx.SVGProps<SVGTSpanElement>;
+        use: sjsx.SVGProps<SVGUseElement>;
+        view: sjsx.SVGProps<SVGViewElement>;
     }
 }
-
-
 interface Element {}
 interface DocumentFragment {}
-
 interface HTMLElement extends Element {}
 interface HTMLAnchorElement extends HTMLElement {}
 interface HTMLAreaElement extends HTMLElement {}
@@ -1370,7 +1288,6 @@ interface HTMLTrackElement extends HTMLElement {}
 interface HTMLUListElement extends HTMLElement {}
 interface HTMLVideoElement extends HTMLElement {}
 interface HTMLWebViewElement extends HTMLElement {}
-
 interface SVGElement extends Element {}
 interface SVGSVGElement extends SVGElement {}
 interface SVGCircleElement extends SVGElement {}
@@ -1426,9 +1343,8 @@ interface SVGTextPathElement extends SVGElement {}
 interface SVGTSpanElement extends SVGElement {}
 interface SVGUseElement extends SVGElement {}
 interface SVGViewElement extends SVGElement {}
-
 type RenderProps = {
-    type: React.ReactElement["type"];
-    props?: React.ReactElement["props"];
-    children?: React.ReactNode;
+    type: sjsx.Element["type"];
+    props?: sjsx.Element["props"];
+    children?: sjsx.Node;
 };

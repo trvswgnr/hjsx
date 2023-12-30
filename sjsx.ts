@@ -10,15 +10,17 @@ import {
     isClassConstructor,
 } from "./util";
 
-export function h(
-    type: React.ReactElement["type"],
-    props?: React.ReactElement["props"],
-    children?: React.ReactNode,
+export function sjsx(
+    type: sjsx.Element["type"],
+    props?: sjsx.Element["props"],
+    children?: sjsx.Node,
 ): RenderProps {
     return { type, props, children };
 }
 
-export function renderToString(component?: React.ReactNode | React.PropsWithChildren<React.ReactNode>): string {
+export const sjsxFragment = ({ children }: RenderProps) => children;
+
+export function renderToString(component?: sjsx.Node | sjsx.PropsWithChildren<sjsx.Node>): string {
     if (isPrimitive(component)) {
         return escapeHtml(String(component));
     }
@@ -92,9 +94,7 @@ export function renderToString(component?: React.ReactNode | React.PropsWithChil
     return `<${type}${propsString}>${childrenString}</${type}>`;
 }
 
-export const Fragment = ({ children }: RenderProps) => children;
-
-function renderChildren({ children }: { children: React.ReactNode }): string {
+function renderChildren({ children }: { children: sjsx.Node }): string {
     children = Array.isArray(children) ? children : [children];
     let childrenString = "";
     for (let child of children) {

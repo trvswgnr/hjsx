@@ -44,13 +44,25 @@ await main();
  * ```
  */
 async function main() {
-    await build();
-    const [oldVersion, newVersion] = await updatePkgVersion();
+    let promise = build().then(() => true);
+    pollPromise(promise, 1000, (value) => {
+        if (value) {
+            console.log("build complete!");
+        }
+    });
+    updatePkgVersion().then(([oldVersion, newVersion]) => {});
     const testsPassed = await runTests();
     const readmeUpdated = await updateReadmeTestsBadge(testsPassed);
     const changedFiles = await getChangedFiles();
     await commitAndPush(changedFiles);
     await publish(oldVersion, newVersion);
+}
+
+function pollPromise<T>(promise: Promise<T>, interval: number, callback: (value: T) => void) {
+    promise.then((value) => {
+        callback(value);
+        setTimeout(() => pollPromise(promise, interval, callback), interval);
+    });
 }
 
 async function getChangedFiles(): Promise<string[]> {

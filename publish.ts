@@ -76,7 +76,11 @@ async function build() {
 
 async function publish(oldVersion: SemVer, newVersion: SemVer) {
     if (oldVersion === newVersion) {
-        console.log(`not publishing to npm because version is still ${newVersion}`);
+        console.log(
+            `${colors.yellow("not publishing to npm")} - ${colors.gray(
+                newVersion,
+            )} === ${colors.gray(oldVersion)}`,
+        );
         return;
     }
     console.log("publishing to npm...");

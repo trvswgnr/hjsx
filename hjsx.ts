@@ -23,7 +23,6 @@ export function fragment({ children }: hjsx.RenderProps) {
     return children;
 }
 
-// Refactored to use functional programming style
 export const renderToString = (component?: unknown): string => {
     if (u.isPrimitive(component)) return u.escapeHtml(String(component));
     if (u.isNullish(component)) return "";
@@ -69,7 +68,6 @@ export const renderToString = (component?: unknown): string => {
         : `<${type} ${propsString}>${childrenString}</${type}>`;
 };
 
-// Refactored to use functional programming style
 const renderChildren = (args: unknown): string => {
     if (u.isNullish(args)) return "";
     if (u.isPrimitive(args)) return u.escapeHtml(String(args));

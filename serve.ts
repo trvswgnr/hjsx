@@ -1,9 +1,9 @@
 import { Page } from "./components";
-import { renderToString } from "./sjsx";
-Bun.serve({
+
+const server = Bun.serve({
     port: 3000,
     async fetch(req) {
-        const body = renderToString(Page());
+        const body = Page.render();
         return new Response(body, {
             headers: {
                 "content-type": "text/html; charset=utf-8",
@@ -12,4 +12,4 @@ Bun.serve({
     }
 });
 
-console.log("Listening on http://localhost:3000");
+console.log(`Listening on ${server.url}`);

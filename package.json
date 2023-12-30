@@ -1,5 +1,6 @@
 {
     "name": "hjsx",
+    "version": "0.1.0",
     "module": "hjsx.ts",
     "type": "module",
     "devDependencies": {
@@ -7,5 +8,5 @@
     },
     "peerDependencies": {
         "typescript": "^5.0.0"
-    }
+    },
 }

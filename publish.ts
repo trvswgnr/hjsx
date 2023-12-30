@@ -23,7 +23,8 @@ await runTests();
 await commitAndPush();
 await publish();
 
-console.log(`published! v${oldVersion} -> v${newVersion}`);
+const green = (text: string) => `\x1b[32m${text}\x1b[0m`;
+console.log(`\n${green("published!")} v${oldVersion} -> v${newVersion}`);
 
 async function build() {
     const { exited } = Bun.spawn(["bun", "run", "build"]);

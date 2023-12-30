@@ -1,11 +1,13 @@
+declare function fragment(props: hjsx.RenderProps): hjsx.Node;
 declare global {
-    export type hjsx = typeof hjsx;
+    export type hjsx = typeof hjsx & {
+        fragment: typeof fragment;
+    };
     export function hjsx(
         type: hjsx.Element["type"],
         props?: hjsx.Element["props"],
         children?: hjsx.Node,
     ): hjsx.Element;
-    export function fragment(props: hjsx.RenderProps): hjsx.Node;
     export namespace hjsx {
         type RenderProps = {
             type: hjsx.Element["type"];
@@ -1403,7 +1405,4 @@ declare global {
     }
 }
 
-export {
-    hjsx,
-    fragment,
-};
+export { hjsx, fragment };

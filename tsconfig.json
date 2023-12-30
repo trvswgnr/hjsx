@@ -6,7 +6,7 @@
     "moduleDetection": "force",
     "jsx": "react",
     "jsxFactory": "hjsx",
-    "jsxFragmentFactory": "fragment",
+    "jsxFragmentFactory": "hjsx.fragment",
     "allowJs": true,
 
     /* Bundler mode */

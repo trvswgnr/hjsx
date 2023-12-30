@@ -12,6 +12,42 @@ It includes modified types for the JSX elements, with all event handlers removed
 
 It *is* currently available on [`npm`](https://www.npmjs.com/package/hjsx), but I wouldn't recommend using it yet.
 
+## Usage
+
+First, install the package:
+
+```bash
+bun i hjsx
+```
+
+Then you'll need to update your tsconfig.json to use the `react-jsx` compiler option, and set the `jsxFactory` and `jsxFragmentFactory` options to `hjsx` and `hjsx.fragment` respectively:
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxFactory": "hjsx",
+    "jsxFragmentFactory": "hjsx.fragment"
+  }
+}
+```
+
+Now you can use JSX in your code:
+
+```tsx
+import 'hjsx';
+type MyComponentProps = hjsx.Attributes & {};
+export function MyComponent(props: MyComponentProps) {
+    return (
+        <>
+            <div {...props}>
+                <h1>c00l b34nz</h1>
+            </div>
+        </>
+    );
+}
+```
+
 Check out the demo:
 
 ```bash
